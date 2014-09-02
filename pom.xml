@@ -5,14 +5,26 @@
     <artifactId>schemaspy</artifactId>
     <version>6.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    
+    <issueManagement>
+        <url>https://github.com/adriens/schemaspy/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+
+    <scm>
+        <url>https://github.com/adriens/schemaspy</url>
+        <connection>scm:git:git://github.com/adriens/schemaspy.git</connection>
+        <developerConnection>scm:git:git@github.com:adriens/schemaspy.git</developerConnection>
+    </scm>
+  
     <licenses>
         <license>
             <name>GNU GPL (Lesser General Public)</name>
             <url>http://www.gnu.org/licenses/lgpl.html</url>    
             <comments>This project respects the initial license which is
-                GNU GPL (Lesser General Public), lgpl_v3</comments>
-            
-            
+                GNU GPL (Lesser General Public), lgpl_v3
+            </comments>
         </license>
     </licenses>
     <contributors>
@@ -33,18 +45,29 @@
         JDBC-compliant database (Oracle/MySQL/DB2/SQL Server/PostgreSQL/Sybase/etc)
         and can identify Ruby on Rails relationships. This tool is a modified version of schemaspy (http://schemaspy.sourceforge.net/)</description>
         
-        <developers>
-            <developer>
-                <email>Adrien.Sales@gmail.com</email>
-                <id>adriens</id>
-                <organization>github.com</organization>
-                <roles>
-                    <role>Developer</role>
-                </roles>
-                <timezone>+11</timezone>
-                <url>https://github.com/adriens</url>
-            </developer>
-        </developers>
+    <developers>
+        <developer>
+            <email>john.currier@gmail.com</email>
+            <id>john.currier</id>
+            <organization>Sourceforge.net</organization>
+            <roles>
+                <role>Main Developer</role>
+                <role>Schemaspy creator</role>
+            </roles>
+            <!--<timezone>?</timezone>-->
+            <url>https://sites.google.com/site/johncurrier/</url>
+        </developer>
+        <developer>
+            <email>Adrien.Sales@gmail.com</email>
+            <id>adriens</id>
+            <organization>github.com</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+11</timezone>
+            <url>https://github.com/adriens</url>
+        </developer>
+    </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
