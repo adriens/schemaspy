@@ -128,8 +128,9 @@ public class HtmlMainIndexPage extends HtmlFormatter {
         html.write(db.getDatabaseProduct());
         html.writeln("  </td>");
         html.writeln("  <td class='container' align='right' valign='top' rowspan='3'>");
-        if (sourceForgeLogoEnabled())
+        /*if (sourceForgeLogoEnabled())
             html.writeln("    <a href='http://sourceforge.net' target='_blank'><img src='http://sourceforge.net/sflogo.php?group_id=137197&amp;type=1' alt='SourceForge.net' border='0' height='31' width='88'></a><br>");
+        */
         html.write("    <br>");
         writeFeedMe(html);
         html.writeln("  </td>");

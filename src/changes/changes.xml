@@ -13,6 +13,7 @@
             <action dev="adriens" type="add">Build mavenized.</action>
 	    <action dev="adriens" type="add">DB2/AS400 support natively added.</action>
             <action dev="adriens" type="add">Removed google ads.</action>
+            <action dev="adriens" type="add">Removed sourceforge logo and refs to previous developer and site.</action>
             
             
             <!--<action dev="adriens" type="add"></action>-->
