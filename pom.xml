@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.schemaspy</groupId>
+    <artifactId>schemaspy</artifactId>
+    <version>6.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <contributors>
+        <contributor>
+            <name>Adrien SALES</name>
+            <email>Adrien.Sales@gmail.com</email>
+            <organization>github.com</organization>
+            <organizationUrl>https://github.com/</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+11</timezone>
+            <url>https://github.com/adriens/schemaspy</url>
+        </contributor>
+    </contributors>
+    <description>SchemaSpy analyzes database metadata to reverse engineer dynamic
+        Entity Relationship (ER) diagrams. It works with just about any
+        JDBC-compliant database (Oracle/MySQL/DB2/SQL Server/PostgreSQL/Sybase/etc)
+        and can identify Ruby on Rails relationships.</description>
+        
+        <developers>
+            <developer>
+                <email>Adrien.Sales@gmail.com</email>
+                <id>adriens</id>
+                <organization>github.com</organization>
+                <roles>
+                    <role>Developer</role>
+                </roles>
+                <timezone>+11</timezone>
+                <url>https://github.com/adriens</url>
+            </developer>
+        </developers>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifest>
+                            <mainClass>net.sourceforge.schemaspy.Main</mainClass>
+                            
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+        </plugins>
+        
+        <resources>
+            <resource>
+                <directory>src/main/java/</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <includes>
+                    <include>**/*.gif</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <includes>
+                    <include>*.js</include>
+                    <include>*.css</include>
+                    <include>*.xsd</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+</project>

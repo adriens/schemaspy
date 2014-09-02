@@ -1,0 +1,27 @@
+
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>Schemaspy Changes</title>
+        <author email="Adrien.Sales@gmail.com">Adrien SALES</author>
+    </properties>
+    <body>
+        <!-- Allowed action.type : add, update -->
+        <release version="6.0.0" date="2014-09-02"
+               description="First version of mavenized Schemaspy">
+            <action dev="adriens" type="add">Build mavenized.</action>
+	    <action dev="adriens" type="add">DB2/AS400 support natively added.</action>
+            <action dev="adriens" type="add"></action>
+            
+            
+            <!--<action dev="adriens" type="add"></action>-->
+        </release>
+	
+	<release version="10.10.05" date="2014-09-01"
+               description="10.10.05 version of the debian installer">
+            <action dev="adriens" type="add">Changed schemacrawler version : target now is 10.10.05</action>
+        </release>
+	    
+    </body>
+</document>
