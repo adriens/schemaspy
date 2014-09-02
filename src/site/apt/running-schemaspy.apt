@@ -1,0 +1,239 @@
+Running SchemaSpy
+
+* Run SchemaSpy from the command line
+
+ You run SchemaSpy from the command line:
+
+--------------------------------------------
+java -jar schemaspy-6.0.0-SNAPSHOT.jar -t dbType -db dbName [-s schema] -u user [-p password] -o outputDir
+--------------------------------------------
+
+* Commonly used parameters
+
+*------------+--------------------*-----------------------------------------------------------------------------------------------------------*
+| Mandatory  | Parameter          | Description                                                                                               |
+*------------+--------------------*-----------------------------------------------------------------------------------------------------------*
+|            | -t databaseType    | Type of database (e.g. ora, db2, etc.). Use -dbhelp for a list of built-in types. Defaults to ora.        |
+*------------+--------------------+-----------------------------------------------------------------------------------------------------------+
+| *          | -db dbName         | Name of database to connect to                                                                            |
+*------------+--------------------+-----------------------------------------------------------------------------------------------------------+
+| *          | -u user            | Valid database user id with read access. A user id is required unless -sso is specified.                  |
+*------------+--------------------+-----------------------------------------------------------------------------------------------------------+
+|            | -s schema          | Database schema. This is optional if it's the same as user or isn't supported by your database.           |
+|            |                    | Use -noschema if your database thinks it supports schemas but doesn't (e.g. older versions of Informix).  |
+*------------+--------------------+-----------------------------------------------------------------------------------------------------------+
+|            | -p password        | Password associated with that user. Defaults to no password.                                              |
+*------------+--------------------+-----------------------------------------------------------------------------------------------------------+
+| *          | -o                 | Directory to write the generated HTML/graphs to                                                           |
+|            | outputDirectory    |                                                                                                           |
+*------------+--------------------+-----------------------------------------------------------------------------------------------------------+
+|            | -dp pathToDrivers  | Looks for drivers here before looking in driverPath in [databaseType].properties. The drivers are usually |
+|            |                    | contained in .jar or .zip files and are typically provided by your database vendor.                       |
+*------------+--------------------+-----------------------------------------------------------------------------------------------------------+
+|            | -hq                | Generate either higher or lower-quality diagrams. Various installations of Graphviz (depending on OS      |
+|            | -lq                | and/or version) will default to generating either higher or lower quality images. That is, some might not |
+|            |                    | have the "lower quality" libraries and others might not have the "higher quality" libraries.              |
+|            |                    | Higher quality output takes longer to generate and results in significantly larger image files            |
+|            |                    | (which take longer to download / display), but the resultant Entity Relationship diagrams generally       |
+|            |                    | look better.                                                                                              |
+*------------+--------------------+-----------------------------------------------------------------------------------------------------------+
+
+* Less commonly used parameters
+
+*----------------------------------------+------------------------------------------------------------------------*
+| -gv pathToGraphviz                     | By default SchemaSpy expects the dot executable to be in the PATH      |
+|                                        | environment variable. Use this option to explicitly specify where      |
+|                                        | Graphviz is installed.                                                 |
+*----------------------------------------+------------------------------------------------------------------------*
+| -desc "Schema description"             |                                                                        |
+*----------------------------------------+------------------------------------------------------------------------*
+| -all                                   | Evaluate all schemas in a database. Generates a high-level index of the|
+|                                        | schemas evaluated and allows for traversal of cross-schema foreign key |
+|                                        | relationships.                                                         |
+|                                        | Use with -schemaSpec "schemaRegularExpression" to narrow-down the      |
+|                                        | schemas to include.                                                    |
+*----------------------------------------+------------------------------------------------------------------------*
+| -schemas "schema1,schema2"             | Evaluate specified schemas. Similar to -all, but explicitly specifies  |
+|                                        | which schema to evaluate without interrogating the database's metadata.|
+|                                        | Can be used with databases like MySQL where a database isn't composed  |
+|                                        | of multiple schemas.                                                   |
+*----------------------------------------+------------------------------------------------------------------------*
+| -meta metafile                         | metafile is either the name of an individual XML file or the directory |
+|                                        | that contains meta files. If a directory is specified then it is       |
+|                                        | expected to contain files matching the pattern [schema].meta.xml.      |
+|                                        | For databases that don't have schema substitute database for schema.   |
+|                                        | See Providing Additional Metadata for details.                         |
+*----------------------------------------+------------------------------------------------------------------------*
+| -connprops propsfile or key\=value;    | Specifies additional properties to be used when connecting to the      |
+|                                        | database. Either specify a .properties file (with key=value entries) or|
+|                                        | specify the entries directly, escaping the ='s with \= and separating  |
+|                                        | each key\=value pair with a ;.                                         |
+*----------------------------------------+------------------------------------------------------------------------*
+| -i "tableNamesRegex"                   | Only include matching tables/views. This is a regular expression that's|
+|                                        | used to determine which tables/views to include.                       |
+|                                        | For example: -i "(.*book.*)|(library.*)" includes only those           |
+|                                        | tables/views with 'book' in their names or that start with 'library'.  |
+|                                        | You might want to use -desc with this option to describe the subset of |
+|                                        | tables.                                                                |
+*----------------------------------------+------------------------------------------------------------------------*
+| -I "tableNamesRegex"                   | Exclude matching tables/views. This regular expression excludes        |
+|                                        | matching tables/views from the analysis. Can be used in conjunction    |
+|                                        | with -i.                                                               |
+*----------------------------------------+------------------------------------------------------------------------*
+| -x "columnNamesRegex"                  | Exclude matching columns from relationship analysis to simplify the    |
+|                                        | generated graphs. This is a regular expression that's used to determine|
+|                                        | which columns to exclude. It must match table name, followed by a dot, |
+|                                        | followed by column name.                                               |
+|                                        | For example: -x "(book.isbn)|(borrower.address)"                       |
+|                                        | Note that each column name regular expression must be surround by ()'s |
+|                                        | and separated from other column names by a |.                          |
+|                                        | Excluded relationships will still show up on detail pages.             |
+*----------------------------------------+------------------------------------------------------------------------*
+| -X "columnNamesRegex"                  | Same as -x but excluded relationships will not show up on detail pages.|
+*----------------------------------------+------------------------------------------------------------------------*
+| -noviews                               | Exclude all views.                                                     |
+*----------------------------------------+------------------------------------------------------------------------*
+| -ahic                                  | Allow HTML In Comments. Any HTML embedded in comments normally gets    |
+|                                        | encoded so that it's rendered as text. This option allows it to be     |
+|                                        |rendered as HTML.                                                       |
+*----------------------------------------+------------------------------------------------------------------------*
+| -norows                                | Don't query or display row counts.                                     |
+*----------------------------------------+------------------------------------------------------------------------*
+| -noimplied                             | Don't include implied foreign key relationships in the generated table |
+|                                        | details.                                                               |
+*----------------------------------------+------------------------------------------------------------------------*
+| -sso                                   | Single Sign-On. Don't require a user to be specified with -u to        |
+|                                        | simplify configuration when running in a single sign-on environment.   |
+*----------------------------------------+------------------------------------------------------------------------*
+| -pfp                                   | Prompt For Password. Prompts for the password so it doesn't appear on  |
+|                                        | the command line.                                                      |
+*----------------------------------------+------------------------------------------------------------------------*
+| -nohtml                                | Only generate files needed for insertion/deletion of data (e.g. for    |
+|                                        |scripts) and an XML representation of the schema.                       |
+*----------------------------------------+------------------------------------------------------------------------*
+| -loglevel                              | Specifies how verbose logging of programmatic flow should be.          |
+|                                        | The levels in descending order are:                                    |
+|                                        | <<severe>> (highest - least detail)                                    |
+|                                        | <<warning>> (default)                                                  |
+|                                        | <<info>>                                                               |
+|                                        | <<config>>                                                             |
+|                                        | <<fine>>                                                               |
+|                                        | <<finer>>                                                              |
+|                                        | <<finest>> (lowest - most detail)                                      |
+*----------------------------------------+------------------------------------------------------------------------*
+
+* Supported databases
+
+ SchemaSpy supports many types of databases. Use :
+
+--------------------------------------------
+java -jar schemaSpy.jar -dbhelp 
+--------------------------------------------
+
+    for a complete list of the built-in database types and the parameters that each one requires.
+
+    See the database types documentation if you want to add support for other types of databases or add additional
+functionality (e.g. to display view and check constraint SQL) to supported databases.
+
+*--------------+---------------------------------------------*
+| Type         | Description                                 |
+*--------------+---------------------------------------------*
+| as400        | DB2 UDB for AS/400, with jt400              |
+*--------------+---------------------------------------------*
+| db2          | IBM DB2 with 'app' Driver                   |
+*--------------+---------------------------------------------*
+| db2net       | IBM DB2 with 'net' Driver                   |
+*--------------+---------------------------------------------*
+| udbt4        | DB2 UDB Type 4 Driver                       |
+*--------------+---------------------------------------------*
+| derby        | Derby (JavaDB) Embedded Server              |
+*--------------+---------------------------------------------*
+| derbynet     | Derby (JavaDB) Network Server               |
+*--------------+---------------------------------------------*
+| firebird     | Firebird                                    |
+*--------------+---------------------------------------------*
+| hsqldb       | HSQLDB Server                               |
+*--------------+---------------------------------------------*
+| informix     | Informix                                    |
+*--------------+---------------------------------------------*
+| maxdb        | MaxDB                                       |
+*--------------+---------------------------------------------*
+| mssql        | Microsoft SQL Server                        |
+*--------------+---------------------------------------------*
+| mssql05      | Microsoft SQL Server 2005                   |
+*--------------+---------------------------------------------*
+| mssql-jtds   | Microsoft SQL Server with jTDS Driver       |
+*--------------+---------------------------------------------*
+| mssql05-jtds | Microsoft SQL Server 2005 with jTDS Driver  |
+*--------------+---------------------------------------------*
+| mysql        | MySQL                                       |
+*--------------+---------------------------------------------*
+| ora          | Oracle with OCI8 Driver                     |
+*--------------+---------------------------------------------*
+| orathin      | Oracle with Thin Driver                     |
+*--------------+---------------------------------------------*
+| pgsql        | PostgreSQL                                  |
+*--------------+---------------------------------------------*
+| sqlite       | SQLite                                      |
+*--------------+---------------------------------------------*
+| sybase       | Sybase Server with JDBC3 Driver             |
+*--------------+---------------------------------------------*
+| sybase2      | Sybase Server with JDBC2 Driver             |
+*--------------+---------------------------------------------*
+| teradata     | Teradata (requires -connprops)              |
+*--------------+---------------------------------------------*
+
+
+* Examples
+
+** A MySQL example
+
+--------------------------------------------
+java -jar schemaSpy.jar -t mysql -o library -host localhost -db library -u user -p password
+--------------------------------------------
+
+ will create a series of files in the library directory that give the details of the schema in
+the database library. This is what I used to generate the sample output. 
+
+** MS SQL Server example
+
+--------------------------------------------
+java -jar schemaSpy.jar -t mssql -db library -host localhost -port 1433 -u user -p password -o library
+--------------------------------------------
+
+ does the same thing as the MySQL example, but specifies an mssql database type
+with MS SQL Server-specific database connection parameters. 
+
+
+** AS400 example
+
+--------------------------------------------
+java -jar schemaspy-6.0.0.jar -t as400 -host AS400HOST -port 446 -db S06A60BQ -u user -p password -s MAIRIE -o as400 -dp /home/adriens/.m2/repository/net/sf/jt400/jt400/6.7/jt400-6.7.jar
+--------------------------------------------
+
+* Providing Additional Metadata
+
+ Metafiles are XML-based files that provide additional metadata about the schema
+being evaluated. See the -meta parameter. Here are some of the things that you
+can define in this XML:
+
+    * Schema comments
+
+    * Table comments
+
+    * Primary keys
+
+    * Foreign keys
+
+    * Cross-schema foreign keys
+
+    * Disabled implied relationships
+
+    * Disabled diagram assocations
+
+    * etc...
+
+ The XML schema that defines the structure of these files is available here.
+There are also some sample XML files (a work in progress) that were used to
+generate these pages. Note that this group of MySQL databases had almost no
+foreign key relationships defined. 
