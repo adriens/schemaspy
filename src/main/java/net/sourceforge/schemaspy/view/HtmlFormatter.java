@@ -202,11 +202,11 @@ public class HtmlFormatter {
         out.writeln("   </table>");
         out.writeln("  </td></tr>");
         out.writeln(" </table>");
-        writeFeedMe(out);
+        //writeFeedMe(out);
         out.writeln("&nbsp;");
     }
 
-    protected void writeFeedMe(LineWriter html) throws IOException {
+    /*protected void writeFeedMe(LineWriter html) throws IOException {
         if (Config.getInstance().isAdsEnabled()) {
             StyleSheet css = StyleSheet.getInstance();
 
@@ -224,12 +224,10 @@ public class HtmlFormatter {
 
             html.writeln("//-->");
             html.writeln("</script>");
-            html.writeln("<script type=\"text/javascript\"");
-            html.writeln("src=\"http://pagead2.googlesyndication.com/pagead/show_ads.js\">");
-            html.writeln("</script>");
+
             html.writeln("</div>");
         }
-    }
+    }*/
 
     protected void writeExcludedColumns(Set<TableColumn> excludedColumns, Table table, LineWriter html) throws IOException {
         Set<TableColumn> notInDiagram;
