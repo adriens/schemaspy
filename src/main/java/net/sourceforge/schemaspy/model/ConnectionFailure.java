@@ -28,7 +28,7 @@ public class ConnectionFailure extends RuntimeException {
     /**
      * When a message is sufficient
      *
-     * @param msg
+     * @param msg The connection failure message
      */
     public ConnectionFailure(String msg) {
         super(msg);
@@ -38,8 +38,8 @@ public class ConnectionFailure extends RuntimeException {
      * When there's an associated root cause.
      * The resultant msg will be a combination of <code>msg</code> and cause's <code>msg</code>.
      *
-     * @param msg
-     * @param cause
+     * @param msg he connection failure message
+     * @param cause The cause of the connection failure
      */
     public ConnectionFailure(String msg, Throwable cause) {
         super(msg + " " + cause.getMessage(), cause);
@@ -48,7 +48,7 @@ public class ConnectionFailure extends RuntimeException {
     /**
      * When there are no details other than the root cause
      *
-     * @param cause
+     * @param cause the exception that is the root of the connection failure
      */
     public ConnectionFailure(Throwable cause) {
         super(cause);

@@ -156,18 +156,7 @@ public class Table implements Comparable<Table> {
         checkConstraints.put(constraintName, text);
     }
 
-    /**
-     * @param rs ResultSet from {@link DatabaseMetaData#getImportedKeys(String, String, String)}
-     * rs.getString("FK_NAME");
-     * rs.getString("FKCOLUMN_NAME");
-     * rs.getString("PKTABLE_SCHEM");
-     * rs.getString("PKTABLE_NAME");
-     * rs.getString("PKCOLUMN_NAME");
-     * @param tables Map
-     * @param db
-     * @throws SQLException
-     */
-    protected void addForeignKey(String fkName, String fkColName,
+        protected void addForeignKey(String fkName, String fkColName,
                         String pkTableSchema, String pkTableName, String pkColName,
                         int updateRule, int deleteRule,
                         Map<String, Table> tables,
@@ -611,7 +600,7 @@ public class Table implements Comparable<Table> {
     }
 
     /**
-     * Returns <code>true</code> if this table references no other tables..<p/>
+     * Returns true if this table references no other tables..
      * Used in dependency analysis.
      * @return
      */
@@ -626,7 +615,7 @@ public class Table implements Comparable<Table> {
     }
 
     /**
-     * Returns <code>true</code> if this table is referenced by no other tables.<p/>
+     * Returns true if this table is referenced by no other tables.
      * Used in dependency analysis.
      * @return
      */
@@ -832,7 +821,7 @@ public class Table implements Comparable<Table> {
     /**
      * Remove one foreign key constraint.
      *
-     * <p/>Used during dependency analysis phase.
+     * Used during dependency analysis phase.
      *
      * @return
      */
@@ -863,7 +852,7 @@ public class Table implements Comparable<Table> {
     }
 
     /**
-     * Returns <code>true</code> if this is a view, <code>false</code> otherwise
+     * Returns true if this is a view, false otherwise
      *
      * @return
      */
@@ -917,9 +906,7 @@ public class Table implements Comparable<Table> {
      *
      * returns -1 if unable to successfully fetch the row count
      *
-     * @param db Database
      * @return int
-     * @throws SQLException
      */
     protected int fetchNumRows() {
         if (properties == null) // some "meta" tables don't have associated properties
@@ -1040,7 +1027,7 @@ public class Table implements Comparable<Table> {
     }
 
     /**
-     * Same as {@link #connectForeignKeys(Map, Database, Properties, Pattern, Pattern)},
+     * Same as connectForeignKeys(Map, Database, Properties, Pattern, Pattern),
      * but uses XML-based metadata
      *
      * @param tableMeta
@@ -1109,12 +1096,12 @@ public class Table implements Comparable<Table> {
 
     /**
      * Compare this table to another table.
-     * Results are based on 1: identity, 2: table name, 3: schema name<p/>
+     * Results are based on 1: identity, 2: table name, 3: schema name
      *
      * This implementation was put in place to deal with analyzing multiple
      * schemas that contain identically named tables.
      *
-     * @see {@link Comparable#compareTo(Object)}
+     *  {@link Comparable#compareTo(Object)}
      */
     public int compareTo(Table other) {
         if (other == this)  // fast way out

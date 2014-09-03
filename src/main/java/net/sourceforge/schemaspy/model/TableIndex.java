@@ -140,7 +140,7 @@ public class TableIndex implements Comparable<TableIndex> {
     }
 
     /**
-     * @param object
+     * @param other
      * @return
      */
     public int compareTo(TableIndex other) {

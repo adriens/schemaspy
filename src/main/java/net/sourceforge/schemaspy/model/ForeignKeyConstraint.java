@@ -166,7 +166,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
     /**
      * Returns the delete rule for this constraint.
      *
-     * @see {@link java.sql.DatabaseMetaData#importedKeyCascade}
+     * see {@link java.sql.DatabaseMetaData#importedKeyCascade}
      */
     public int getDeleteRule() {
         return deleteRule;
@@ -174,7 +174,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
 
     /**
      * Returns <code>true</code> if this constraint should
-     * <a href='http://en.wikipedia.org/wiki/Cascade_delete'>cascade deletions</code>.
+     * see http://en.wikipedia.org/wiki/Cascade_delete.
      *
      * @return
      */
@@ -256,7 +256,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
     /**
      * Returns the update rule for this constraint.
      *
-     * @see {@link java.sql.DatabaseMetaData#importedKeyCascade}
+     * see {@link java.sql.DatabaseMetaData#importedKeyCascade}
      */
     public int getUpdateRule() {
         return updateRule;

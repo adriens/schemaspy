@@ -98,6 +98,7 @@ public class SchemaMeta {
 
     /**
      * Comments that describe the schema
+     * @return get the Comments
      */
     public String getComments() {
         return comments;
