@@ -52,6 +52,7 @@
 	    <item name="Overview" href="overview.html"/>
             <item name="Running SchemaSpy" href="running-schemaspy.html"/>
             <item name="Acknowledgments" href="acknowledgments.html"/>
+            <item name="SchemaSpy Database Types" href="dbtypes.html"/>
         </menu>
         
         <menu name="Samples">

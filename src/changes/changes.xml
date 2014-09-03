@@ -21,6 +21,7 @@
             <action dev="adriens" type="add">Corrected javadoc so javadoc runs on jdk-1.8</action>
             <action dev="adriens" type="add">Corrected javadoc so javadoc runs on jdk-1.8 without warning</action>
             <action dev="adriens" type="add">Maven site : output sample added : Postgres HR sample</action>
+            <action dev="adriens" type="add">Maven site : added dbtypes page</action>
             
             
             <!--<action dev="adriens" type="add"></action>-->

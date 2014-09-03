@@ -1,0 +1,156 @@
+SchemaSpy Database Types
+
+ One goal of SchemaSpy is to support a wide range of JDBC-complaint databases.
+It uses the concept of "database types", as specified by .properties files, to
+achieve that goal. Out of the box SchemaSpy supports a multitude of databases.
+If your database isn't currently supported or needs to be customized then
+continue reading.
+
+ For SchemaSpy to support your database it must: 
+
+    * Have JDBC drivers available
+
+    * The JDBC drivers must provide JDBC metadata
+
+ The vast majority of relational databases have JDBC drivers that provide appropriate metadata. 
+
+* Database Type .properties Files
+
+    The -t command-line parameter specified which type of database you're
+dealing with. For example: -t mysql says to use the MySQL-specific database type
+file named mysql.properties. This file, by default, lives in the SchemaSpy jar
+file, but if you specify a path to the file then it can also reside on your
+file system so you can easily modify / experiment with the file's settings.
+
+    Let's start with a simple (and typical) database type file called mysql.properties. The basic file looks like this: 
+
+--------------------------------------------
+description=MySQL
+
+driver=com.mysql.jdbc.Driver
+
+connectionSpec=jdbc:mysql://<host>/<db>
+host=hostname[:port] host where database resides with optional port
+db=database name
+--------------------------------------------
+
+    See the entire MySQL configuration file {{{https://github.com/adriens/schemaspy/blob/master/src/main/java/net/sourceforge/schemaspy/dbTypes/mysql.properties}here}}.
+
+** Basic entries
+
+***  description
+
+    Simple description of the type of database. 
+
+*** driver
+
+    The full name of the driver class that provides the required JDBC services.
+This class name is provided by the database driver vendor.
+Use the -dp (driver path) command-line option to point to the .jar or .zip that
+contains this class. 
+
+*** connectionSpec
+
+    The format of the connection spec is defined by the database driver vendor.
+It usually has a format similar to the one used for MySQL: 
+
+--------------------------------------------
+jdbc:mysql://<host>/<db>
+--------------------------------------------
+
+    The names surrounded by \< and \> are required by the driver vendor and will
+become required parameters on the SchemaSpy command line. Those command line
+values will be substituted into the connection spec before it is used to connect
+to the database.
+
+*** host and db
+
+    These will vary for each type of database and provide documentation for the
+names surrounded by < and > in connectionSpec. For example, if you forget to
+specify -host on the command line then you will get an error message that
+includes the text: 
+
+--------------------------------------------
+hostname[:port] host where database resides with optional port
+--------------------------------------------
+
+    The idea is to have meaningful error messages / descriptions of these database-specific parameters.
+
+* Custom SQL
+
+    The remaining entries in the .properties file are not required for most
+databases. They're typically used to provide functionality that either isn't
+provided by the JDBC metadata services or when those services are in some way
+inappropriate (performance, incorrect results, etc.).
+
+    For these SQL-based entries you can use optional "named parameters" in the
+SQL. These named parameters are :schema, :owner, :table and :view. They will be
+substituted with appropriate values at runtime.
+
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| Name                         | Required Columns                            | Optional Columns                        | Returns                                                                                   | Scope of query |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectTablesSql              | table_name                                  | table_schema, table_comment, table_rows | Basic information about all tables in a specific schema.                                  | Database       |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectViewsSql               | view_name, view_definition                  | view_schema, view_comment               | Basic information about all views in a specific schema.                                   | Database       |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectIndexesSql             | index_name, column_name, type, asc_or_desc  |                                         | Information about indexes in a specific table.                                            | Single table   |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectRowCountSql            | row_count                                   |                                         | Number of rows in a specific table.                                                       | Single table   |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectTableCommentsSql       | table_name, comments                        |                                         | Comments associated with tables and (optionally) views.                                   | Database       |
+|                              |                                             |                                         | Useful if the database driver doesn't return this info or if it's persisted elsewhere.    |                |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectViewCommentsSql        | view_name, comments                         |                                         | Comments associated with views.                                                           | Database       |
+|                              |                                             |                                         | Optionally defined if selectTableCommentsSql doesn't return view comments.                |                |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectColumnCommentsSql      | table_name, column_name, comments           |                                         | Comments associated with table columns and (optionally) view columns.                     | Database       |
+|                              |                                             |                                         | Useful if the database driver doesn't return this info or if it's persisted elsewhere.    |                |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectViewColumnCommentsSql  | view_name, column_name, comments            |                                         | Comments associated with view columns.                                                    | Database       |
+|                              |                                             |                                         | Optionally defined if selectColumnCommentsSql doesn't return view column comments.        |                |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectCheckConstraintsSql    | constraint_name, table_name, text           |                                         | Check constraint details of all check constraints, where 'text' is usually the SQL used   | Database       |
+|                              |                                             |                                         | to create the constraint. These details will be displayed on the table detail pages.      |                |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectViewSql                | view_definition                             |                                         | Details of a specific view, usually the SQL used to create the view. These details will   | Single view    |
+|                              |                                             |                                         | be displayed on the view detail pages.                                                    |                |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectTableIdsSql            | table_id, table_name                        |                                         | Unique ID for each table. This is useful for databases (such as DB2) that may give error  | Database       |
+|                              |                                             |                                         | messages with just table IDs instead of names.                                            |                |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+| selectIndexIdsSql            | index_id, index_name, table_name            |                                         | Unique ID for each table index. This is useful for databases (such as DB2) that may       | Database       |
+|                              |                                             |                                         | give error messages with just index IDs instead of names.                                 |                |
+*------------------------------+---------------------------------------------*-----------------------------------------*-------------------------------------------------------------------------------------------*----------------*
+
+* Reusing Configurations
+
+    For those instances where you have two almost identical configurations you
+can use the extends directive, specifying another .properties file to be
+"extended." Interaction with DB2 through its "type 4 network driver",
+for example, is almost identical to the the DB2 "app driver". db2net.properties
+therefore has a line that reads extends=db2 and only includes those configuration
+options that deviate from db2.properties. 
+
+    Another related directive is include. It "includes" a key=value pair from
+another .properties file. The format is include.x=dbtype::key where :
+
+    * x is a number that starts at 1 and increments for every include required 
+
+    * dbtype is the name of another database type .properties file
+
+    * key is the name of the entry in specified .properties file (e.g. selectColumnCommentsSql)
+
+    The include directive is useful for reusing complex portions of
+configuration files (such as the SQL customization settings shown above) while
+extending other files. See mssql05-jtds.properties as an example. 
+
+* Single-Threaded Drivers
+
+    There's one remaining database configuration entry named dbThreads. It is
+used for database drivers whose metadata queries aren't thread safe. If your
+driver returns failures like "stream already closed" then you'll need to 
+specify either dbThreads=1 in your .properties or "-dbThreads 1" on the command
+line. 
+
+    
