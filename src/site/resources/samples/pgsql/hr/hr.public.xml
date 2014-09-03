@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="hr" schema="public" type="PostgreSQL - 9.3.4">
+   <tables>
+      <table name="countries" numRows="25" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="country_id" nullable="false" remarks="" size="2" type="bpchar">
+            <child column="country_id" foreignKey="locations_country_id_fkey" implied="false" onDeleteCascade="false" table="locations"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="country_name" nullable="true" remarks="" size="40" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="region_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="region_id" foreignKey="countries_region_id_fkey" implied="false" onDeleteCascade="false" table="regions"/>
+         </column>
+         <primaryKey column="country_id" sequenceNumberInPK="1"/>
+         <index name="countries_pkey" unique="true">
+            <column ascending="true" name="country_id"/>
+         </index>
+      </table>
+      <table name="departments" numRows="27" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('departments_department_id_seq'::regclass)" digits="0" id="0" name="department_id" nullable="false" remarks="" size="10" type="serial">
+            <child column="department_id" foreignKey="employees_department_id_fkey" implied="false" onDeleteCascade="false" table="employees"/>
+            <child column="department_id" foreignKey="job_history_department_id_fkey" implied="false" onDeleteCascade="false" table="job_history"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="department_name" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="manager_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="employee_id" foreignKey="dept_mgr_fk" implied="false" onDeleteCascade="false" table="employees"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="location_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="location_id" foreignKey="departments_location_id_fkey" implied="false" onDeleteCascade="false" table="locations"/>
+         </column>
+         <primaryKey column="department_id" sequenceNumberInPK="1"/>
+         <index name="departments_pkey" unique="true">
+            <column ascending="true" name="department_id"/>
+         </index>
+         <index name="dept_location_ix" unique="false">
+            <column ascending="true" name="location_id"/>
+         </index>
+      </table>
+      <table name="employees" numRows="107" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('employees_employee_id_seq'::regclass)" digits="0" id="0" name="employee_id" nullable="false" remarks="" size="10" type="serial">
+            <child column="manager_id" foreignKey="dept_mgr_fk" implied="false" onDeleteCascade="false" table="departments"/>
+            <child column="manager_id" foreignKey="employees_manager_id_fkey" implied="false" onDeleteCascade="false" table="employees"/>
+            <child column="employee_id" foreignKey="job_history_employee_id_fkey" implied="false" onDeleteCascade="false" table="job_history"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="first_name" nullable="true" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="last_name" nullable="false" remarks="" size="25" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="email" nullable="false" remarks="" size="25" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="phone_number" nullable="true" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="5" name="hire_date" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="job_id" nullable="false" remarks="" size="10" type="varchar">
+            <parent column="job_id" foreignKey="employees_job_id_fkey" implied="false" onDeleteCascade="false" table="jobs"/>
+         </column>
+         <column autoUpdated="false" digits="2" id="7" name="salary" nullable="true" remarks="" size="8" type="numeric"/>
+         <column autoUpdated="false" digits="2" id="8" name="commission_pct" nullable="true" remarks="" size="2" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="manager_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="employee_id" foreignKey="employees_manager_id_fkey" implied="false" onDeleteCascade="false" table="employees"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="department_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="department_id" foreignKey="employees_department_id_fkey" implied="false" onDeleteCascade="false" table="departments"/>
+         </column>
+         <primaryKey column="employee_id" sequenceNumberInPK="1"/>
+         <index name="employees_pkey" unique="true">
+            <column ascending="true" name="employee_id"/>
+         </index>
+         <index name="emp_department_ix" unique="false">
+            <column ascending="true" name="department_id"/>
+         </index>
+         <index name="emp_email_uk" unique="true">
+            <column ascending="true" name="email"/>
+         </index>
+         <index name="emp_job_ix" unique="false">
+            <column ascending="true" name="job_id"/>
+         </index>
+         <index name="emp_manager_ix" unique="false">
+            <column ascending="true" name="manager_id"/>
+         </index>
+         <index name="emp_name_ix" unique="false">
+            <column ascending="true" name="last_name"/>
+            <column ascending="true" name="first_name"/>
+         </index>
+      </table>
+      <table name="job_history" numRows="10" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="employee_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="employee_id" foreignKey="job_history_employee_id_fkey" implied="false" onDeleteCascade="false" table="employees"/>
+         </column>
+         <column autoUpdated="false" digits="6" id="1" name="start_date" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="2" name="end_date" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="3" name="job_id" nullable="false" remarks="" size="10" type="varchar">
+            <parent column="job_id" foreignKey="job_history_job_id_fkey" implied="false" onDeleteCascade="false" table="jobs"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="department_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="department_id" foreignKey="job_history_department_id_fkey" implied="false" onDeleteCascade="false" table="departments"/>
+         </column>
+         <primaryKey column="employee_id" sequenceNumberInPK="1"/>
+         <primaryKey column="start_date" sequenceNumberInPK="2"/>
+         <index name="job_history_pkey" unique="true">
+            <column ascending="true" name="employee_id"/>
+            <column ascending="true" name="start_date"/>
+         </index>
+         <index name="jhist_department_ix" unique="false">
+            <column ascending="true" name="department_id"/>
+         </index>
+         <index name="jhist_employee_ix" unique="false">
+            <column ascending="true" name="employee_id"/>
+         </index>
+         <index name="jhist_job_ix" unique="false">
+            <column ascending="true" name="job_id"/>
+         </index>
+      </table>
+      <table name="jobs" numRows="19" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="job_id" nullable="false" remarks="" size="10" type="varchar">
+            <child column="job_id" foreignKey="employees_job_id_fkey" implied="false" onDeleteCascade="false" table="employees"/>
+            <child column="job_id" foreignKey="job_history_job_id_fkey" implied="false" onDeleteCascade="false" table="job_history"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="job_title" nullable="false" remarks="" size="35" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="min_salary" nullable="true" remarks="" size="6" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="3" name="max_salary" nullable="true" remarks="" size="6" type="numeric"/>
+         <primaryKey column="job_id" sequenceNumberInPK="1"/>
+         <index name="jobs_pkey" unique="true">
+            <column ascending="true" name="job_id"/>
+         </index>
+      </table>
+      <table name="locations" numRows="23" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('locations_location_id_seq'::regclass)" digits="0" id="0" name="location_id" nullable="false" remarks="" size="10" type="serial">
+            <child column="location_id" foreignKey="departments_location_id_fkey" implied="false" onDeleteCascade="false" table="departments"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="street_address" nullable="true" remarks="" size="40" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="postal_code" nullable="true" remarks="" size="12" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="city" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="state_province" nullable="true" remarks="" size="25" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="country_id" nullable="true" remarks="" size="2" type="bpchar">
+            <parent column="country_id" foreignKey="locations_country_id_fkey" implied="false" onDeleteCascade="false" table="countries"/>
+         </column>
+         <primaryKey column="location_id" sequenceNumberInPK="1"/>
+         <index name="locations_pkey" unique="true">
+            <column ascending="true" name="location_id"/>
+         </index>
+         <index name="loc_city_ix" unique="false">
+            <column ascending="true" name="city"/>
+         </index>
+         <index name="loc_country_ix" unique="false">
+            <column ascending="true" name="country_id"/>
+         </index>
+         <index name="loc_state_province_ix" unique="false">
+            <column ascending="true" name="state_province"/>
+         </index>
+      </table>
+      <table name="regions" numRows="4" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('regions_region_id_seq'::regclass)" digits="0" id="0" name="region_id" nullable="false" remarks="" size="10" type="serial">
+            <child column="region_id" foreignKey="countries_region_id_fkey" implied="false" onDeleteCascade="false" table="countries"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="region_name" nullable="true" remarks="" size="25" type="varchar"/>
+         <primaryKey column="region_id" sequenceNumberInPK="1"/>
+         <index name="regions_pkey" unique="true">
+            <column ascending="true" name="region_id"/>
+         </index>
+      </table>
+   </tables>
+</database>

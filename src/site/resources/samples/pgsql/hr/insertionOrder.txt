@@ -1,0 +1,7 @@
+jobs
+regions
+countries
+locations
+departments
+employees
+job_history

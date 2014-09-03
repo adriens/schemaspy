@@ -211,6 +211,26 @@ with MS SQL Server-specific database connection parameters.
 java -jar schemaspy-6.0.0.jar -t as400 -host AS400HOST -port 446 -db S06A60BQ -u user -p password -s MAIRIE -o as400 -dp /home/adriens/.m2/repository/net/sf/jt400/jt400/6.7/jt400-6.7.jar
 --------------------------------------------
 
+** PostgreSQL example
+
+
+ Create sample database :
+
+--------------------------------------------
+wget http://dbseminar.r61.net/system/files/HR_pgsql.sql
+psql -h svi-pg0.site-mairie.noumea.nc -d postgres -U adminpg --command="drop database if exists hr"
+psql -h svi-pg0.site-mairie.noumea.nc -d postgres -U adminpg --command="CREATE DATABASE hr ENCODING 'UTF-8' OWNER postgres"
+psql -h svi-pg0.site-mairie.noumea.nc -d postgres -U adminpg --command="CREATE ROLE hr LOGIN ENCRYPTED PASSWORD 'hr' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION"
+psql -h svi-pg0.site-mairie.noumea.nc -d hr -U hr -f HR_pgsql.sql
+--------------------------------------------
+
+ Generate sample :
+
+--------------------------------------------
+java -jar ~/Projects/schemaspy/target/schemaspy-6.0.0-SNAPSHOT.jar -u hr -p hr  -t pgsql -host svi-pg0.site-mairie.noumea.nc -db hr -o ~/Projects/schemaspy/src/site/resources/samples/pgsql/hr -dp /home/salad74/.m2/repository/org/postgresql/postgresql/9.3-1102-jdbc41/postgresql-9.3-1102-jdbc41.jar -s public -hq
+firefox ~/Projects/schemaspy/src/site/resources/samples/pgsql/hr/index.html
+--------------------------------------------
+
 * Providing Additional Metadata
 
  Metafiles are XML-based files that provide additional metadata about the schema

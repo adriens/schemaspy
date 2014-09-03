@@ -49,14 +49,14 @@
         </links>
 
         <menu name="Schemaspy">
-            
 	    <item name="Overview" href="overview.html"/>
             <item name="Running SchemaSpy" href="running-schemaspy.html"/>
             <item name="Acknowledgments" href="acknowledgments.html"/>
-            
+        </menu>
+        
+        <menu name="Samples">
+	    <item name="Postgres HR sample" href="samples/pgsql/hr/index.html"/>
             <!--<item name="" href=""/>-->
-	    
-	    
         </menu>
         
         <menu ref="reports"/>
