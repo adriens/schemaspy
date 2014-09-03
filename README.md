@@ -14,6 +14,7 @@ TODO
 * Rewrite the site as a maven site and grab all the existing documentation
 * Prepare deb installer
 * Prepare rpm installer
+* Upload artifact on maven repo
 
 
 
