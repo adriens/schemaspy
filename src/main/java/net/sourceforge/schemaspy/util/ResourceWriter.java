@@ -37,9 +37,9 @@ public class ResourceWriter {
     /**
      * Write the specified resource to the specified filename
      *
-     * @param resourceName
-     * @param writeTo
-     * @throws IOException
+     * @param resourceName resourceName
+     * @param writeTo writeTo
+     * @throws IOException IOException
      */
     public void writeResource(String resourceName, File writeTo) throws IOException {
         writeTo.getParentFile().mkdirs();

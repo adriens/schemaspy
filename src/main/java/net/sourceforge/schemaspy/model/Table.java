@@ -68,14 +68,14 @@ public class Table implements Comparable<Table> {
     /**
      * Construct a table that knows everything about the database table's metadata
      *
-     * @param db
-     * @param schema
-     * @param name
-     * @param comments
-     * @param properties
-     * @param excludeIndirectColumns
-     * @param excludeColumns
-     * @throws SQLException
+     * @param db the database
+     * @param schema the schema
+     * @param name the name
+     * @param comments comments
+     * @param properties properties
+     * @param excludeIndirectColumns excludeIndirectColumns
+     * @param excludeColumns The columns to exclude
+     * @throws SQLException in case sql execution throws Exception
      */
     public Table(Database db, String schema, String name, String comments, Properties properties, Pattern excludeIndirectColumns, Pattern excludeColumns) throws SQLException {
         this.schema = schema;
@@ -94,10 +94,10 @@ public class Table implements Comparable<Table> {
      * "Connect" all of this table's foreign keys to their referenced primary keys
      * (and, in some cases, do the reverse as well).
      *
-     * @param tables
-     * @param excludeIndirectColumns
-     * @param excludeColumns
-     * @throws SQLException
+     * @param tables tables
+     * @param excludeIndirectColumns excludeIndirectColumns
+     * @param excludeColumns excludeColumns
+     * @throws SQLException SQLException
      */
     public void connectForeignKeys(Map<String, Table> tables, Pattern excludeIndirectColumns, Pattern excludeColumns) throws SQLException {
         ResultSet rs = null;
@@ -139,7 +139,7 @@ public class Table implements Comparable<Table> {
     /**
      * Get the foreign keys associated with this table
      *
-     * @return
+     * @return ForeignKeyConstraints ForeignKeyConstraints
      */
     public Collection<ForeignKeyConstraint> getForeignKeys() {
         return Collections.unmodifiableCollection(foreignKeys.values());
@@ -149,8 +149,8 @@ public class Table implements Comparable<Table> {
      * Add a check constraint to the table
      * (no real details, just name and textual representation)
      *
-     * @param constraintName
-     * @param text
+     * @param constraintName constraintName
+     * @param text text
      */
     public void addCheckConstraint(String constraintName, String text) {
         checkConstraints.put(constraintName, text);
@@ -344,9 +344,9 @@ public class Table implements Comparable<Table> {
 
     /**
      * @param rs - from {@link DatabaseMetaData#getColumns(String, String, String, String)}
-     * @param excludeIndirectColumns
-     * @param excludeColumns
-     * @throws SQLException
+     * @param excludeIndirectColumns excludeIndirectColumns
+     * @param excludeColumns excludeColumns
+     * @throws SQLException SQLException
      */
     protected void addColumn(ResultSet rs, Pattern excludeIndirectColumns, Pattern excludeColumns) throws SQLException {
         String columnName = rs.getString("COLUMN_NAME");
@@ -364,8 +364,8 @@ public class Table implements Comparable<Table> {
     /**
      * Add a column that's defined in xml metadata.
      * Assumes that a column named colMeta.getName() doesn't already exist in <code>columns</code>.
-     * @param colMeta
-     * @return
+     * @param colMeta colMeta
+     * @return TableColumn TableColumn
      */
     protected TableColumn addColumn(TableColumnMeta colMeta) {
         TableColumn column = new TableColumn(this, colMeta);
@@ -453,8 +453,8 @@ public class Table implements Comparable<Table> {
     }
 
     /**
-     * @param indexName
-     * @return
+     * @param indexName indexName
+     * @return index index
      */
     public TableIndex getIndex(String indexName) {
         return indexes.get(indexName);
@@ -484,7 +484,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns the schema that the table belongs to
      *
-     * @return
+     * @return Schema Schema
      */
     public String getSchema() {
         return schema;
@@ -493,7 +493,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns the name of the table
      *
-     * @return
+     * @return name name
      */
     public String getName() {
         return name;
@@ -503,7 +503,7 @@ public class Table implements Comparable<Table> {
      * Object IDs are useful for tables such as DB/2 that many times
      * give error messages based on object ID and not name
      *
-     * @param id
+     * @param id is
      */
     public void setId(Object id) {
         this.id = id;
@@ -512,7 +512,7 @@ public class Table implements Comparable<Table> {
     /**
      * @see #setId(Object)
      *
-     * @return
+     * @return id id
      */
     public Object getId() {
         return id;
@@ -521,7 +521,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns the check constraints associated with this table
      *
-     * @return
+     * @return CheckConstraints CheckConstraints
      */
     public Map<String, String> getCheckConstraints() {
         return checkConstraints;
@@ -530,7 +530,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns the indexes that are applied to this table
      *
-     * @return
+     * @return Indexes Indexes
      */
     public Set<TableIndex> getIndexes() {
         return new HashSet<TableIndex>(indexes.values());
@@ -539,7 +539,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns a collection of table columns that have been identified as "primary"
      *
-     * @return
+     * @return PrimaryColumns PrimaryColumns
      */
     public List<TableColumn> getPrimaryColumns() {
         return primaryKeys;
@@ -555,7 +555,7 @@ public class Table implements Comparable<Table> {
     /**
      * Sets the comments that are associated with this table
      *
-     * @param comments
+     * @param comments comments
      */
     public void setComments(String comments) {
         String cmts = (comments == null || comments.trim().length() == 0) ? null : comments.trim();
@@ -581,8 +581,8 @@ public class Table implements Comparable<Table> {
      * Returns the {@link TableColumn} with the given name, or <code>null</code>
      * if it doesn't exist
      *
-     * @param columnName
-     * @return
+     * @param columnName columnName
+     * @return Column Column
      */
     public TableColumn getColumn(String columnName) {
         return columns.get(columnName);
@@ -591,7 +591,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns <code>List</code> of <code>TableColumn</code>s in ascending column number order.
      *
-     * @return
+     * @return Columns Columns
      */
     public List<TableColumn> getColumns() {
         Set<TableColumn> sorted = new TreeSet<TableColumn>(new ByColumnIdComparator());
@@ -602,7 +602,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns true if this table references no other tables..
      * Used in dependency analysis.
-     * @return
+     * @return isRoot isRoot
      */
     public boolean isRoot() {
         for (TableColumn column : columns.values()) {
@@ -617,7 +617,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns true if this table is referenced by no other tables.
      * Used in dependency analysis.
-     * @return
+     * @return isLeaf isLeaf
      */
     public boolean isLeaf() {
         for (TableColumn column : columns.values()) {
@@ -633,7 +633,7 @@ public class Table implements Comparable<Table> {
      * Returns the maximum number of parents that this table has had before
      * any had been removed during dependency analysis
      *
-     * @return
+     * @return MaxParents MaxParents
      */
     public int getMaxParents() {
         return maxParents;
@@ -660,7 +660,7 @@ public class Table implements Comparable<Table> {
      * Returns the maximum number of children that this table has had before
      * any had been removed during dependency analysis
      *
-     * @return
+     * @return axChildren axChildren
      */
     public int getMaxChildren() {
         return maxChildren;
@@ -686,7 +686,7 @@ public class Table implements Comparable<Table> {
     /**
      * Remove a single self referencing constraint if one exists.
      *
-     * @return
+     * @return ForeignKeyConstraint ForeignKeyConstraint
      */
     public ForeignKeyConstraint removeSelfReferencingConstraint() {
         return remove(getSelfReferencingConstraint());
@@ -697,7 +697,7 @@ public class Table implements Comparable<Table> {
      *
      * This is a more drastic removal solution that was proposed by Remke Rutgers
      *
-     * @param constraint
+     * @param constraint constraint
      */
     private ForeignKeyConstraint remove(ForeignKeyConstraint constraint) {
         if (constraint != null) {
@@ -714,7 +714,7 @@ public class Table implements Comparable<Table> {
     /**
      * Return a self referencing constraint if one exists
      *
-     * @return
+     * @return ForeignKeyConstraint ForeignKeyConstraint
      */
     private ForeignKeyConstraint getSelfReferencingConstraint() {
         for (TableColumn column : columns.values()) {
@@ -730,7 +730,7 @@ public class Table implements Comparable<Table> {
     /**
      * Remove any non-real foreign keys
      *
-     * @return
+     * @return ForeignKeyConstraints ForeignKeyConstraints
      */
     public List<ForeignKeyConstraint> removeNonRealForeignKeys() {
         List<ForeignKeyConstraint> nonReals = new ArrayList<ForeignKeyConstraint>();
@@ -756,7 +756,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns the number of tables that reference this table
      *
-     * @return
+     * @return NumChildren NumChildren
      */
     public int getNumChildren() {
         int numChildren = 0;
@@ -770,7 +770,7 @@ public class Table implements Comparable<Table> {
 
     /**
      * Returns the number of non-implied children
-     * @return
+     * @return NumNonImpliedChildren NumNonImpliedChildren
      */
     public int getNumNonImpliedChildren() {
         int numChildren = 0;
@@ -788,7 +788,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns the number of tables that are referenced by this table
      *
-     * @return
+     * @return umParents umParents
      */
     public int getNumParents() {
         int numParents = 0;
@@ -803,7 +803,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns the number of non-implied parents
      *
-     * @return
+     * @return NumNonImpliedParents NumNonImpliedParents
      */
     public int getNumNonImpliedParents() {
         int numParents = 0;
@@ -823,7 +823,7 @@ public class Table implements Comparable<Table> {
      *
      * Used during dependency analysis phase.
      *
-     * @return
+     * @return ForeignKeyConstraint ForeignKeyConstraint
      */
     public ForeignKeyConstraint removeAForeignKeyConstraint() {
         @SuppressWarnings("hiding")
@@ -854,7 +854,7 @@ public class Table implements Comparable<Table> {
     /**
      * Returns true if this is a view, false otherwise
      *
-     * @return
+     * @return isView isView
      */
     public boolean isView() {
         return false;
@@ -862,7 +862,7 @@ public class Table implements Comparable<Table> {
 
     /**
      * Returns <code>true</code> if this table is remote (in another schema), <code>false</code> otherwise
-     * @return
+     * @return isRemote isRemote
      */
     public boolean isRemote() {
         return false;
@@ -871,7 +871,7 @@ public class Table implements Comparable<Table> {
     /**
      * If this is a view it returns the SQL used to create the view (if it's available).
      * <code>null</code> if it's not a view or the SQL isn't available.
-     * @return
+     * @return ViewSql ViewSql
      * @see #isView()
      */
     public String getViewSql() {
@@ -882,7 +882,7 @@ public class Table implements Comparable<Table> {
      * Returns the number of rows contained in this table, or -1 if unable to determine
      * the number of rows.
      *
-     * @return
+     * @return NumRows NumRows
      */
     public int getNumRows() {
         if (numRows == null) {
@@ -895,7 +895,7 @@ public class Table implements Comparable<Table> {
     /**
      * Explicitly set the number of rows in this table
      *
-     * @param numRows
+     * @param numRows numRows
      */
     public void setNumRows(int numRows) {
         this.numRows = numRows;
@@ -906,7 +906,7 @@ public class Table implements Comparable<Table> {
      *
      * returns -1 if unable to successfully fetch the row count
      *
-     * @return int
+     * @return int int
      */
     protected int fetchNumRows() {
         if (properties == null) // some "meta" tables don't have associated properties
@@ -1002,7 +1002,7 @@ public class Table implements Comparable<Table> {
     /**
      * Update the table with the specified XML-derived metadata
      *
-     * @param tableMeta
+     * @param tableMeta tableMeta
      */
     public void update(TableMeta tableMeta) {
         String newComments = tableMeta.getComments();
@@ -1030,9 +1030,9 @@ public class Table implements Comparable<Table> {
      * Same as connectForeignKeys(Map, Database, Properties, Pattern, Pattern),
      * but uses XML-based metadata
      *
-     * @param tableMeta
-     * @param tables
-     * @param remoteTables
+     * @param tableMeta tableMeta
+     * @param tables tables
+     * @param remoteTables remoteTables
      */
     public void connect(TableMeta tableMeta, Map<String, Table> tables, Map<String, Table> remoteTables) {
         for (TableColumnMeta colMeta : tableMeta.getColumns()) {

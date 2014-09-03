@@ -97,9 +97,9 @@ public class DefaultSqlFormatter implements SqlFormatter {
      * Returns a {@link Set} of tables/views that are possibly referenced
      * by the specified SQL.
      *
-     * @param sql
-     * @param db
-     * @return
+     * @param sql sql
+     * @param db db
+     * @return ReferencedTables
      */
     protected Set<Table> getReferencedTables(String sql, Database db) {
         Set<Table> referenced = new HashSet<Table>();
@@ -134,8 +134,8 @@ public class DefaultSqlFormatter implements SqlFormatter {
      * Returns a {@link Map} of all tables/views in the database
      * keyed by several possible ways to refer to the table.
      *
-     * @param db
-     * @return
+     * @param db db 
+     * @return TableMap
      */
     protected Map<String, Table> getTableMap(Database db)
     {
@@ -154,9 +154,9 @@ public class DefaultSqlFormatter implements SqlFormatter {
      * Returns a {@link Map} of the specified tables/views
      * keyed by several possible ways to refer to the table.
      *
-     * @param tables
-     * @param dbName
-     * @return
+     * @param tables tables
+     * @param dbName dbName
+     * @return TableMap
      */
     protected Map<String, Table> getTableMap(Collection<? extends Table> tables, String dbName) {
         Map<String, Table> map = new CaseInsensitiveMap<Table>();
@@ -183,8 +183,8 @@ public class DefaultSqlFormatter implements SqlFormatter {
     }
 
     /**
-     * @param meta
-     * @return
+     * @param meta meta
+     * @return Keywords
      */
     public Set<String> getKeywords(DatabaseMetaData meta) {
         if (keywords == null) {

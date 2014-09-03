@@ -33,8 +33,8 @@ public class TableIndex implements Comparable<TableIndex> {
     private final List<Boolean> columnsAscending = new ArrayList<Boolean>(); // for whether colums are ascending order
 
     /**
-     * @param rs
-     * @throws java.sql.SQLException
+     * @param rs rs
+     * @throws java.sql.SQLException SQLException
      */
     public TableIndex(ResultSet rs) throws SQLException {
         name = rs.getString("INDEX_NAME");
@@ -61,7 +61,7 @@ public class TableIndex implements Comparable<TableIndex> {
     }
 
     /**
-     * @return
+     * @return Type
      */
     public String getType() {
         if (isPrimaryKey())
@@ -72,28 +72,28 @@ public class TableIndex implements Comparable<TableIndex> {
     }
 
     /**
-     * @return
+     * @return isPrimaryKey
      */
     public boolean isPrimaryKey() {
         return isPrimary;
     }
 
     /**
-     * @param isPrimaryKey
+     * @param isPrimaryKey isPrimaryKey
      */
     public void setIsPrimaryKey(boolean isPrimaryKey) {
         isPrimary = isPrimaryKey;
     }
 
     /**
-     * @return
+     * @return isUnique
      */
     public boolean isUnique() {
         return isUnique;
     }
 
     /**
-     * @return
+     * @return ColumnsAsString
      */
     public String getColumnsAsString() {
         StringBuilder buf = new StringBuilder();
@@ -132,16 +132,16 @@ public class TableIndex implements Comparable<TableIndex> {
     }
 
     /**
-     * @param column
-     * @return
+     * @param column column
+     * @return isAscending
      */
     public boolean isAscending(TableColumn column) {
         return columnsAscending.get(columns.indexOf(column)).booleanValue();
     }
 
     /**
-     * @param other
-     * @return
+     * @param other other
+     * @return if it's equal
      */
     public int compareTo(TableIndex other) {
         if (isPrimaryKey() && !other.isPrimaryKey())

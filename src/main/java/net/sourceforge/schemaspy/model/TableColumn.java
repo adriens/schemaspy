@@ -105,8 +105,8 @@ public class TableColumn {
      * A TableColumn that's derived from something other than traditional database metadata
      * (e.g. defined in XML).
      *
-     * @param table
-     * @param colMeta
+     * @param table table
+     * @param colMeta colMeta
      */
     public TableColumn(Table table, TableColumnMeta colMeta) {
         this.table = table;
@@ -125,7 +125,7 @@ public class TableColumn {
     /**
      * Returns the {@link Table} that this column belongs to.
      *
-     * @return
+     * @return get The Table
      */
     public Table getTable() {
         return table;
@@ -134,7 +134,7 @@ public class TableColumn {
     /**
      * Returns the column's name.
      *
-     * @return
+     * @return get the Name
      */
     public String getName() {
         return name;
@@ -143,7 +143,7 @@ public class TableColumn {
     /**
      * Returns the ID of the column or <code>null</code> if the database doesn't support the concept.
      *
-     * @return
+     * @return the Object
      */
     public Object getId() {
         return id;
@@ -152,7 +152,7 @@ public class TableColumn {
     /**
      * Type of the column.
      * See {@link DatabaseMetaData#getColumns(String, String, String, String)}'s <code>TYPE_NAME</code>.
-     * @return
+     * @return get the type
      */
     public String getType() {
         return type;
@@ -162,7 +162,7 @@ public class TableColumn {
      * Length of the column.
      * See {@link DatabaseMetaData#getColumns(String, String, String, String)}'s <code>BUFFER_LENGTH</code>,
      * or if that's <code>null</code>, <code>COLUMN_SIZE</code>.
-     * @return
+     * @return get the length
      */
     public int getLength() {
         return length;
@@ -172,7 +172,7 @@ public class TableColumn {
      * Decimal digits of the column.
      * See {@link DatabaseMetaData#getColumns(String, String, String, String)}'s <code>DECIMAL_DIGITS</code>.
      *
-     * @return
+     * @return DecimalDigits
      */
     public int getDecimalDigits() {
         return decimalDigits;
@@ -181,7 +181,7 @@ public class TableColumn {
     /**
      * String representation of length with optional decimal digits (if decimal digits &gt; 0).
      *
-     * @return
+     * @return get DetailedSize
      */
     public String getDetailedSize() {
         return detailedSize;
@@ -190,7 +190,7 @@ public class TableColumn {
     /**
      * Returns <code>true</code> if null values are allowed
      *
-     * @return
+     * @return tells wether is Nullable or not
      */
     public boolean isNullable() {
         return isNullable;
@@ -199,7 +199,7 @@ public class TableColumn {
     /**
      * See {@link java.sql.ResultSetMetaData#isAutoIncrement(int)}
      *
-     * @return
+     * @return tells wether is AutoUpdated or not
      */
     public boolean isAutoUpdated() {
         return isAutoUpdated;
@@ -217,7 +217,7 @@ public class TableColumn {
     /**
      * Returns <code>true</code> if this column can only contain unique values
      *
-     * @return
+     * @return Tels is there is a unique constraint on this column
      */
     public boolean isUnique() {
         if (isUnique == null) {
@@ -244,7 +244,7 @@ public class TableColumn {
     /**
      * Returns <code>true</code> if this column is a primary key
      *
-     * @return
+     * @return tells is the colum is a PK or not
      */
     public boolean isPrimary() {
         return table.getPrimaryColumns().contains(this);
@@ -253,7 +253,7 @@ public class TableColumn {
     /**
      * Returns <code>true</code> if this column points to another table's primary key.
      *
-     * @return
+     * @return tells if it is a Foreign Key or not
      */
     public boolean isForeignKey() {
         return !parents.isEmpty();
@@ -262,7 +262,7 @@ public class TableColumn {
     /**
      * Returns the value that the database uses for this column if one isn't provided.
      *
-     * @return
+     * @return get the default value on this column
      */
     public Object getDefaultValue() {
         return defaultValue;
@@ -277,7 +277,7 @@ public class TableColumn {
 
     /**
      * See {@link #getComments()}
-     * @param comments
+     * @param comments the comments on the column
      */
     public void setComments(String comments) {
         this.comments = (comments == null || comments.trim().length() == 0) ? null : comments.trim();
@@ -291,7 +291,7 @@ public class TableColumn {
      * <p>This is typically an attempt to reduce clutter that can be introduced when many tables
      * reference a given column.
      *
-     * @return
+     * @return isExcluded
      */
     public boolean isExcluded() {
         return isExcluded;
@@ -304,7 +304,7 @@ public class TableColumn {
      * <p>This is typically an attempt to reduce clutter that can be introduced when many tables
      * reference a given column.
      *
-     * @return
+     * @return isAllExcluded
      */
     public boolean isAllExcluded() {
         return isAllExcluded;
@@ -313,8 +313,8 @@ public class TableColumn {
     /**
      * Add a parent column (PK) to this column (FK) via the associated constraint
      *
-     * @param parent
-     * @param constraint
+     * @param parent parent
+     * @param constraint constraint
      */
     public void addParent(TableColumn parent, ForeignKeyConstraint constraint) {
         parents.put(parent, constraint);
@@ -324,7 +324,7 @@ public class TableColumn {
     /**
      * Remove the specified parent column from this column
      *
-     * @param parent
+     * @param parent parent
      */
     public void removeParent(TableColumn parent) {
         parents.remove(parent);
@@ -343,7 +343,7 @@ public class TableColumn {
     /**
      * Returns the {@link Set} of all {@link TableColumn parents} associated with this column
      *
-     * @return
+     * @return the parents
      */
     public Set<TableColumn> getParents() {
         return parents.keySet();
@@ -351,6 +351,8 @@ public class TableColumn {
 
     /**
      * Returns the constraint that connects this column to the specified column (this 'child' column to specified 'parent' column)
+     * @param parent parent
+     * @return the Parent Constraint
      */
     public ForeignKeyConstraint getParentConstraint(TableColumn parent) {
         return parents.get(parent);
@@ -389,8 +391,8 @@ public class TableColumn {
     /**
      * Add a child column (FK) to this column (PK) via the associated constraint
      *
-     * @param child
-     * @param constraint
+     * @param child child
+     * @param constraint constraint
      */
     public void addChild(TableColumn child, ForeignKeyConstraint constraint) {
         children.put(child, constraint);
@@ -400,7 +402,7 @@ public class TableColumn {
     /**
      * Remove the specified child column from this column
      *
-     * @param child
+     * @param child child
      */
     public void removeChild(TableColumn child) {
         children.remove(child);
@@ -427,6 +429,8 @@ public class TableColumn {
     /**
      * returns the constraint that connects the specified column to this column
      * (specified 'child' to this 'parent' column)
+     * @param child child
+     * @return getChildConstraint
      */
     public ForeignKeyConstraint getChildConstraint(TableColumn child) {
         return children.get(child);
@@ -436,8 +440,8 @@ public class TableColumn {
      * Returns <code>true</code> if tableName.columnName matches the supplied
      * regular expression.
      *
-     * @param regex
-     * @return
+     * @param regex regex
+     * @return if regex matches
      */
     public boolean matches(Pattern regex) {
         return regex.matcher(getTable().getName() + '.' + getName()).matches();
@@ -447,7 +451,7 @@ public class TableColumn {
      * Update the state of this column with the supplied {@link TableColumnMeta}.
      * Intended to be used with instances created by {@link #TableColumn(Table, TableColumnMeta)}.
      *
-     * @param colMeta
+     * @param colMeta TableColumnMeta
      */
     public void update(TableColumnMeta colMeta) {
         String newComments = colMeta.getComments();
@@ -488,7 +492,7 @@ public class TableColumn {
      * Returns <code>true</code> if this column is permitted to be an implied FK
      * (based on name/type/size matches to PKs).
      *
-     * @return
+     * @return allowsImpliedParents
      */
     public boolean allowsImpliedParents() {
         return allowImpliedParents;
@@ -498,7 +502,7 @@ public class TableColumn {
      * Returns <code>true</code> if this column is permitted to be a PK to an implied FK
      * (based on name/type/size matches to PKs).
      *
-     * @return
+     * @return allowsImpliedChildren
      */
     public boolean allowsImpliedChildren() {
         return allowImpliedChildren;

@@ -28,8 +28,8 @@ import net.sourceforge.schemaspy.DbAnalyzer;
  */
 public class RailsForeignKeyConstraint extends ForeignKeyConstraint {
     /**
-     * @param parentColumn
-     * @param childColumn
+     * @param parentColumn parentColumn
+     * @param childColumn childColumn
      */
     public RailsForeignKeyConstraint(TableColumn parentColumn, TableColumn childColumn) {
         super(parentColumn, childColumn);
@@ -39,7 +39,7 @@ public class RailsForeignKeyConstraint extends ForeignKeyConstraint {
      * Normally the name of the constraint, but this one is implied by
      * Rails naming conventions.
      *
-     * @return
+     * @return name name
      */
     @Override
     public String getName() {

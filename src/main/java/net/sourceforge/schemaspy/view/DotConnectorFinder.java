@@ -45,6 +45,7 @@ public class DotConnectorFinder {
     /**
      *
      * @param table Table
+     * @param includeImplied includeImplied
      * @return Set of <code>dot</code> relationships (as {@link DotConnector}s)
      */
     public Set<DotConnector> getRelatedConnectors(Table table, boolean includeImplied) {
@@ -62,6 +63,8 @@ public class DotConnectorFinder {
      *
      * @param table1 Table
      * @param table2 Table
+     * @param includeExcluded includeExcluded
+     * @param includeImplied includeImplied
      * @return Set of <code>dot</code> relationships (as {@link DotConnector}s)
      */
     public Set<DotConnector> getRelatedConnectors(Table table1, Table table2, boolean includeExcluded, boolean includeImplied) {

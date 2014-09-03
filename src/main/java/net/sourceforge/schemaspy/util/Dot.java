@@ -115,7 +115,7 @@ public class Dot {
 
     /**
      * @see #setFormat(String)
-     * @return
+     * @return getFormat
      */
     public String getFormat() {
         return format;
@@ -130,7 +130,7 @@ public class Dot {
      * the format specifier.  Earlier versions didn't require it and didn't know
      * about the option.
      *
-     * @return
+     * @return requiresGdRenderer
      */
     public boolean requiresGdRenderer() {
         return getVersion().compareTo(new Version("2.12")) >= 0 && supportsRenderer(":gd");
@@ -143,7 +143,7 @@ public class Dot {
      * {@link #setFormat(String)}<p>
      * Note that the leading ":" is required while :formatter is optional.
      *
-     * @param renderer
+     * @param renderer renderer
      */
     public void setRenderer(String renderer) {
         this.renderer = renderer;
@@ -161,6 +161,7 @@ public class Dot {
      * but various installations of Graphviz may have have different abilities.
      * That is, some might not have the "lower quality" libraries and others might
      * not have the "higher quality" libraries.
+     * @param highQuality highQuality
      */
     public void setHighQuality(boolean highQuality) {
         if (highQuality && supportsRenderer(":cairo")) {
@@ -171,6 +172,7 @@ public class Dot {
     }
 
     /**
+     * @return isHighQuality 
      * @see #setHighQuality(boolean)
      */
     public boolean isHighQuality() {
@@ -181,8 +183,8 @@ public class Dot {
      * Returns <code>true</code> if the specified renderer is supported.
      * See {@link #setRenderer(String)} for renderer details.
      *
-     * @param renderer
-     * @return
+     * @param renderer renderer
+     * @return supportsRenderer supportsRenderer
      */
     public boolean supportsRenderer(@SuppressWarnings("hiding") String renderer) {
         if (!exists())
@@ -245,6 +247,10 @@ public class Dot {
 
     /**
      * Using the specified .dot file generates an image returning the image's image map.
+     * @param dotFile dotFile
+     * @param diagramFile diagramFile
+     * @return generateDiagram generateDiagram
+     * @throws net.sourceforge.schemaspy.util.Dot.DotFailure DotFailure
      */
     public String generateDiagram(File dotFile, File diagramFile) throws DotFailure {
         StringBuilder mapBuffer = new StringBuilder(1024);

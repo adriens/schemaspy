@@ -67,8 +67,10 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      * found in the system.  One impact of using this constructor is that it will
      * "glue" the two tables together through their columns.
      *
-     * @param parentColumn
-     * @param childColumn
+     * @param parentColumn parentColumn
+     * @param childColumn childColumn
+     * @param updateRule updateRule
+     * @param deleteRule deleteRule
      */
     public ForeignKeyConstraint(TableColumn parentColumn, TableColumn childColumn,
                                 int updateRule, int deleteRule) {
@@ -86,8 +88,8 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      * but defaults updateRule and deleteRule to
      * {@link java.sql.DatabaseMetaData#importedKeyNoAction}.
      *
-     * @param parentColumn
-     * @param childColumn
+     * @param parentColumn parentColumn
+     * @param childColumn childColumn
      */
     public ForeignKeyConstraint(TableColumn parentColumn, TableColumn childColumn) {
         this(parentColumn, childColumn, importedKeyNoAction, importedKeyNoAction);
@@ -96,7 +98,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
     /**
      * Add a "parent" side to the constraint.
      *
-     * @param column
+     * @param column column
      */
     void addParentColumn(TableColumn column) {
         if (column != null) {
@@ -108,7 +110,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
     /**
      * Add a "child" side to the constraint.
      *
-     * @param column
+     * @param column column
      */
     void addChildColumn(TableColumn column) {
         if (column != null) {
@@ -119,7 +121,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
     /**
      * Returns the name of the constraint
      *
-     * @return
+     * @return name name
      */
     public String getName() {
         return name;
@@ -129,7 +131,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      * Returns the parent table (the table that contains the referenced primary key
      * column).
      *
-     * @return
+     * @return ParentTable ParentTable
      */
     public Table getParentTable() {
         return parentTable;
@@ -138,7 +140,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
     /**
      * Returns all of the primary key columns that are referenced by this constraint.
      *
-     * @return
+     * @return ParentColumns ParentColumns
      */
     public List<TableColumn> getParentColumns() {
         return Collections.unmodifiableList(parentColumns);
@@ -148,7 +150,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      * Returns the table on the "child" end of the relationship (contains the foreign
      * key that references the parent table's primary key).
      *
-     * @return
+     * @return ChildTable ChildTable
      */
     public Table getChildTable() {
         return childTable;
@@ -157,7 +159,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
     /**
      * Returns all of the foreign key columns that are referenced by this constraint.
      *
-     * @return
+     * @return ChildColumns ChildColumns
      */
     public List<TableColumn> getChildColumns() {
         return Collections.unmodifiableList(childColumns);
@@ -167,6 +169,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      * Returns the delete rule for this constraint.
      *
      * see {@link java.sql.DatabaseMetaData#importedKeyCascade}
+     * @return DeleteRule DeleteRule
      */
     public int getDeleteRule() {
         return deleteRule;
@@ -176,7 +179,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      * Returns <code>true</code> if this constraint should
      * see http://en.wikipedia.org/wiki/Cascade_delete.
      *
-     * @return
+     * @return isCascadeOnDelete isCascadeOnDelete
      */
     public boolean isCascadeOnDelete() {
         return getDeleteRule() == importedKeyCascade;
@@ -186,7 +189,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      * Returns <code>true</code> if the constraint prevents the parent table
      * from being deleted if child tables exist.
      *
-     * @return
+     * @return isRestrictDelete isRestrictDelete
      */
     public boolean isRestrictDelete() {
         return getDeleteRule() == importedKeyNoAction || getDeleteRule() == importedKeyRestrict;
@@ -196,7 +199,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      * Returns <code>true</code> if the constraint indicates that the foreign key
      * will be set to <code>null</code> when the parent key is deleted.
      *
-     * @return
+     * @return isNullOnDelete isNullOnDelete
      */
     public boolean isNullOnDelete() {
         return getDeleteRule() == importedKeySetNull;
@@ -257,6 +260,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      * Returns the update rule for this constraint.
      *
      * see {@link java.sql.DatabaseMetaData#importedKeyCascade}
+     * @return  getUpdateRule getUpdateRule
      */
     public int getUpdateRule() {
         return updateRule;
@@ -268,7 +272,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      *
      * Subclasses that implement implied constraints should override this method.
      *
-     * @return
+     * @return isImplied isImplied
      */
     public boolean isImplied() {
         return false;
@@ -281,7 +285,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      * This is different than {@link #isImplied()} in that implied relationships
      * are a specific type of non-real relationships.
      *
-     * @return
+     * @return isReal isReal
      */
     public boolean isReal() {
         return getClass() == ForeignKeyConstraint.class;
@@ -293,7 +297,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      *
      * @param other ForeignKeyConstraint
      *
-     * @return
+     * @return is Equals
      */
     public int compareTo(ForeignKeyConstraint other) {
         if (other == this)
@@ -319,8 +323,8 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
      * Static method that returns a string representation of the specified
      * list of {@link TableColumn columns}.
      *
-     * @param columns
-     * @return
+     * @param columns columns
+     * @return toString toString
      */
     public static String toString(List<TableColumn> columns) {
         if (columns.size() == 1)
@@ -331,7 +335,7 @@ public class ForeignKeyConstraint implements Comparable<ForeignKeyConstraint> {
     /**
      * Returns a string representation of this foreign key constraint.
      *
-     * @return
+     * @return toString toString
      */
     @Override
     public String toString() {

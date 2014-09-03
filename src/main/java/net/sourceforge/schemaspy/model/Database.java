@@ -108,7 +108,7 @@ public class Database {
     /**
      * Return a {@link Map} of all {@link Table}s keyed by their name.
      *
-     * @return
+     * @return TablesByName TablesByName
      */
     public Map<String, Table> getTablesByName() {
     	return tables;
@@ -436,6 +436,9 @@ public class Database {
      * Some databases don't play nice with their metadata.
      * E.g. Oracle doesn't have a REMARKS column at all.
      * This method ignores those types of failures, replacing them with null.
+     * @param rs rs
+     * @param columnName columnName
+     * @return OptionalString OptionalString
      */
     public String getOptionalString(ResultSet rs, String columnName)
     {
@@ -713,8 +716,8 @@ public class Database {
      * </ol>
      * @param sql String - SQL without question marks
      * @param tableName String - <code>null</code> if the statement doesn't deal with <code>Table</code>-level details.
-     * @throws SQLException
-     * @return PreparedStatement
+     * @throws SQLException SQLException
+     * @return PreparedStatement PreparedStatement
      */
     public PreparedStatement prepareStatement(String sql, String tableName) throws SQLException {
         StringBuilder sqlBuf = new StringBuilder(sql);
@@ -753,8 +756,8 @@ public class Database {
     /**
      * Return an uppercased <code>Set</code> of all SQL keywords used by a database
      *
-     * @return
-     * @throws SQLException
+     * @return SqlKeywords
+     * @throws SQLException SQLException
      */
     public Set<String> getSqlKeywords() throws SQLException {
         if (sqlKeywords == null) {
@@ -836,9 +839,9 @@ public class Database {
     /**
      * Return <code>id</code> quoted if required, otherwise return <code>id</code>
      *
-     * @param id
-     * @return
-     * @throws SQLException
+     * @param id id
+     * @return QuotedIdentifier QuotedIdentifier
+     * @throws SQLException SQLException
      */
     public String getQuotedIdentifier(String id) throws SQLException {
         // look for any character that isn't valid (then matcher.find() returns true)

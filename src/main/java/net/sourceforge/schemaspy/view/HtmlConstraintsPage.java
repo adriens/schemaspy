@@ -184,7 +184,7 @@ public class HtmlConstraintsPage extends HtmlFormatter {
      *
      * @param tables Collection
      * @param html LineWriter
-     * @throws IOException
+     * @throws IOException IOException
      */
     public void writeCheckConstraints(Collection<Table> tables, LineWriter html) throws IOException {
         html.writeln("<a name='checkConstraints'></a><p>");

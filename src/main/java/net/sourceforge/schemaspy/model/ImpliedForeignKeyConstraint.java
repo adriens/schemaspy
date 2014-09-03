@@ -20,15 +20,15 @@ package net.sourceforge.schemaspy.model;
 
 public class ImpliedForeignKeyConstraint extends ForeignKeyConstraint {
     /**
-     * @param parentColumn
-     * @param childColumn
+     * @param parentColumn parentColumn
+     * @param childColumn childColumn
      */
     public ImpliedForeignKeyConstraint(TableColumn parentColumn, TableColumn childColumn) {
         super(parentColumn, childColumn);
     }
 
     /**
-     * @return
+     * @return name name
      */
     @Override
     public String getName() {
@@ -36,7 +36,7 @@ public class ImpliedForeignKeyConstraint extends ForeignKeyConstraint {
     }
 
     /**
-     * @return
+     * @return isImplied isImplied
      */
     @Override
     public boolean isImplied() {
@@ -44,7 +44,7 @@ public class ImpliedForeignKeyConstraint extends ForeignKeyConstraint {
     }
 
     /**
-     * @return
+     * @return String String
      */
     @Override
     public String toString() {

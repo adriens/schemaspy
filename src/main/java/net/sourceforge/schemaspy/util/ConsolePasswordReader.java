@@ -38,11 +38,11 @@ public class ConsolePasswordReader extends PasswordReader {
     /**
      * Attempt to resolve the Console methods that were introduced in Java6.
      *
-     * @throws SecurityException
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
+     * @throws SecurityException SecurityException
+     * @throws NoSuchMethodException NoSuchMethodException
+     * @throws InvocationTargetException InvocationTargetException
+     * @throws IllegalAccessException IllegalAccessException
+     * @throws IllegalArgumentException IllegalArgumentException
      */
     protected ConsolePasswordReader() throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         // get the console by calling System.console() (Java6+ method)

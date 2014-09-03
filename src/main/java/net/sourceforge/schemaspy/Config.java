@@ -133,7 +133,7 @@ public class Config
      * Construct a configuration from an array of options (e.g. from a command
      * line interface).
      *
-     * @param argv
+     * @param argv argv
      */
     public Config(String[] argv)
     {
@@ -161,7 +161,7 @@ public class Config
      *
      * Useful for things like selecting a specific configuration in a UI.
      *
-     * @param config
+     * @param config config
      */
     public static void setInstance(Config config) {
         instance = config;
@@ -211,7 +211,7 @@ public class Config
     /**
      * Set the path to Graphviz so we can find dot to generate ER diagrams
      *
-     * @param graphvizDir
+     * @param graphvizDir graphvizDir
      */
     public void setGraphvizDir(String graphvizDir) {
         if (graphvizDir.endsWith("\""))
@@ -223,7 +223,7 @@ public class Config
     /**
      * Set the path to Graphviz so we can find dot to generate ER diagrams
      *
-     * @param graphvizDir
+     * @param graphvizDir graphvizDir
      */
     public void setGraphvizDir(File graphvizDir) {
         this.graphvizDir = graphvizDir;
@@ -236,7 +236,7 @@ public class Config
      * Returns Graphviz path (if a specific one)
      * was not specified.
      *
-     * @return
+     * @return GraphvizDir
      */
     public File getGraphvizDir() {
         if (graphvizDir == null) {
@@ -259,7 +259,7 @@ public class Config
      * If a directory is specified then it is expected to contain files
      * matching the pattern <code>[schema].meta.xml</code>.
      * For databases that don't have schema substitute database for schema.
-     * @param meta
+     * @param meta meta
      */
     public void setMeta(String meta) {
         this.meta = meta;
@@ -311,6 +311,7 @@ public class Config
      * {@link DatabaseMetaData#supportsSchemasInTableDefinitions()}.
      * This option lets you ignore that and treat all the tables
      * as if they were in one flat namespace.
+     * @return isSchemaDisabled isSchemaDisabled
      */
     public boolean isSchemaDisabled() {
         if (noSchema == null)
@@ -361,7 +362,7 @@ public class Config
      * User used to connect to the database.
      * Required unless single sign-on is enabled
      * (see {@link #setSingleSignOn(boolean)}).
-     * @return
+     * @return user User
      */
     public String getUser() {
         if (user == null) {
@@ -385,6 +386,7 @@ public class Config
     }
 
     /**
+     * @return  isSingleSignOn isSingleSignOn
      * @see #setSingleSignOn(boolean)
      */
     public boolean isSingleSignOn() {
@@ -396,7 +398,7 @@ public class Config
 
     /**
      * Set the password used to connect to the database.
-     * @param password
+     * @param password password
      */
     public void setPassword(String password) {
         this.password = password;
@@ -404,7 +406,7 @@ public class Config
 
     /**
      * @see #setPassword(String)
-     * @return
+     * @return Password Password
      */
     public String getPassword() {
         if (password == null)
@@ -414,7 +416,7 @@ public class Config
 
     /**
      * Set to <code>true</code> to prompt for the password
-     * @param promptForPassword
+     * @param promptForPassword promptForPassword
      */
     public void setPromptForPasswordEnabled(boolean promptForPassword) {
         this.promptForPassword = promptForPassword;
@@ -422,7 +424,7 @@ public class Config
 
     /**
      * @see #setPromptForPasswordEnabled(boolean)
-     * @return
+     * @return isPromptForPasswordEnabled
      */
     public boolean isPromptForPasswordEnabled() {
         if (promptForPassword == null) {
@@ -458,9 +460,9 @@ public class Config
      * database connection.<br>
      * user (from -u) and password (from -p) will be passed in the
      * connection properties if specified.
-     * @param propertiesFilename
-     * @throws FileNotFoundException
-     * @throws IOException
+     * @param propertiesFilename propertiesFilename
+     * @throws FileNotFoundException FileNotFoundException
+     * @throws IOException IOException
      */
     public void setConnectionPropertiesFile(String propertiesFilename) throws FileNotFoundException, IOException {
         if (userConnectionProperties == null)
@@ -473,9 +475,9 @@ public class Config
      * Returns a {@link Properties} populated either from the properties file specified
      * by {@link #setConnectionPropertiesFile(String)}, the properties specified by
      * {@link #setConnectionProperties(String)} or not populated.
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
+     * @return onnectionProperties
+     * @throws FileNotFoundException FileNotFoundException
+     * @throws IOException IOException
      */
     public Properties getConnectionProperties() throws FileNotFoundException, IOException {
         if (userConnectionProperties == null) {
@@ -502,7 +504,7 @@ public class Config
      * This is an alternative form of passing connection properties than by file
      * (see {@link #setConnectionPropertiesFile(String)})
      *
-     * @param properties
+     * @param properties properties
      */
     public void setConnectionProperties(String properties) {
         userConnectionProperties = new Properties();
@@ -542,7 +544,7 @@ public class Config
      *
      * Defaults to <code>"schemaSpy.css"</code>.
      *
-     * @param css
+     * @param css css
      */
     public void setCss(String css) {
         this.css = css;
@@ -560,13 +562,14 @@ public class Config
     /**
      * The font to use within diagrams.  Modify the .css to specify HTML fonts.
      *
-     * @param font
+     * @param font font
      */
     public void setFont(String font) {
         this.font = font;
     }
 
     /**
+     * @return Font Font
      * @see #setFont(String)
      */
     public String getFont() {
@@ -586,7 +589,7 @@ public class Config
      *
      * Defaults to 11.
      *
-     * @param fontSize
+     * @param fontSize fontSize
      */
     public void setFontSize(int fontSize) {
         this.fontSize = new Integer(fontSize);
@@ -594,7 +597,7 @@ public class Config
 
     /**
      * @see #setFontSize(int)
-     * @return
+     * @return ontSize ontSize
      */
     public int getFontSize() {
         if (fontSize == null) {
@@ -612,13 +615,14 @@ public class Config
     /**
      * The character set to use within HTML pages (defaults to <code>"ISO-8859-1"</code>).
      *
-     * @param charset
+     * @param charset charset
      */
     public void setCharset(String charset) {
         this.charset = charset;
     }
 
     /**
+     * @return Charset Charset
      * @see #setCharset(String)
      */
     public String getCharset() {
@@ -633,13 +637,14 @@ public class Config
     /**
      * Description of schema that gets display on main pages.
      *
-     * @param description
+     * @param description description
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
+     * @return Description Description
      * @see #setDescription(String)
      */
     public String getDescription() {
@@ -651,13 +656,14 @@ public class Config
     /**
      * Maximum number of threads to use when querying database metadata information.
      *
-     * @param maxDbThreads
+     * @param maxDbThreads maxDbThreads
      */
     public void setMaxDbThreads(int maxDbThreads) {
         this.maxDbThreads = new Integer(maxDbThreads);
     }
 
     /**
+     * @return MaxDbThreads MaxDbThreads
      * @see #setMaxDbThreads(int)
      * @throws InvalidConfigurationException if unable to load properties
      */
@@ -703,13 +709,14 @@ public class Config
     /**
      * Don't use this unless absolutely necessary as it screws up the layout
      *
-     * @param enabled
+     * @param enabled enabled
      */
     public void setRankDirBugEnabled(boolean enabled) {
         rankDirBugEnabled = enabled;
     }
 
     /**
+     * @return isRankDirBugEnabled isRankDirBugEnabled
      * @see #setRankDirBugEnabled(boolean)
      */
     public boolean isRankDirBugEnabled() {
@@ -728,7 +735,7 @@ public class Config
      * The columns that logically reference that <code>ID</code> are the singular
      * form of the table name suffixed with <code>_ID</code>.<p>
      *
-     * @param enabled
+     * @param enabled enabled
      */
     public void setRailsEnabled(boolean enabled) {
         railsEnabled = enabled;
@@ -737,7 +744,7 @@ public class Config
     /**
      * @see #setRailsEnabled(boolean)
      *
-     * @return
+     * @return isRailsEnabled isRailsEnabled
      */
     public boolean isRailsEnabled() {
         if (railsEnabled == null)
@@ -748,12 +755,14 @@ public class Config
 
     /**
      * Allow Html In Comments - encode them unless otherwise specified
+     * @param enabled enabled
      */
     public void setEncodeCommentsEnabled(boolean enabled) {
         encodeCommentsEnabled = enabled;
     }
 
     /**
+     * @return isEncodeCommentsEnabled isEncodeCommentsEnabled
      * @see #setEncodeCommentsEnabled(boolean)
      */
     public boolean isEncodeCommentsEnabled() {
@@ -769,7 +778,7 @@ public class Config
      *
      * Defaults to <code>true</code> (enabled).
      *
-     * @param enabled
+     * @param enabled enabled
      */
     public void setNumRowsEnabled(boolean enabled) {
         numRowsEnabled = enabled;
@@ -777,7 +786,7 @@ public class Config
 
     /**
      * @see #setNumRowsEnabled(boolean)
-     * @return
+     * @return isNumRowsEnabled isNumRowsEnabled
      */
     public boolean isNumRowsEnabled() {
         if (numRowsEnabled == null)
@@ -791,7 +800,7 @@ public class Config
      *
      * Defaults to <code>true</code> (enabled).
      *
-     * @param enabled
+     * @param enabled enabled
      */
     public void setViewsEnabled(boolean enabled) {
         viewsEnabled = enabled;
@@ -799,7 +808,7 @@ public class Config
 
     /**
      * @see #setViewsEnabled(boolean)
-     * @return
+     * @return isViewsEnabled isViewsEnabled
      */
     public boolean isViewsEnabled() {
         if (viewsEnabled == null)
@@ -812,7 +821,7 @@ public class Config
      * Returns <code>true</code> if metering should be embedded in
      * the generated pages.
      * Defaults to <code>false</code> (disabled).
-     * @return
+     * @return isMeterEnabled isMeterEnabled
      */
     public boolean isMeterEnabled() {
         if (meterEnabled == null)
@@ -833,7 +842,7 @@ public class Config
 
     /**
      * See {@link #setColumnExclusions(String)}
-     * @return
+     * @return getColumnExclusions getColumnExclusions
      */
     public Pattern getColumnExclusions() {
         if (columnExclusions == null) {
@@ -861,7 +870,7 @@ public class Config
     /**
      * @see #setIndirectColumnExclusions(String)
      *
-     * @return
+     * @return getIndirectColumnExclusions getIndirectColumnExclusions
      */
     public Pattern getIndirectColumnExclusions() {
         if (indirectColumnExclusions == null) {
@@ -877,7 +886,7 @@ public class Config
 
     /**
      * Set the tables to include as a regular expression
-     * @param tableInclusions
+     * @param tableInclusions tableInclusions
      */
     public void setTableInclusions(String tableInclusions) {
         this.tableInclusions = Pattern.compile(tableInclusions);
@@ -886,7 +895,7 @@ public class Config
     /**
      * Get the regex {@link Pattern} for which tables to include in the analysis.
      *
-     * @return
+     * @return getTableInclusions getTableInclusions
      */
     public Pattern getTableInclusions() {
         if (tableInclusions == null) {
@@ -906,7 +915,7 @@ public class Config
 
     /**
      * Set the tables to exclude as a regular expression
-     * @param tableExclusions
+     * @param tableExclusions tableExclusions
      */
     public void setTableExclusions(String tableExclusions) {
         this.tableExclusions = Pattern.compile(tableExclusions);
@@ -915,7 +924,7 @@ public class Config
     /**
      * Get the regex {@link Pattern} for which tables to exclude from the analysis.
      *
-     * @return
+     * @return TableExclusions TableExclusions
      */
     public Pattern getTableExclusions() {
         if (tableExclusions == null) {
@@ -934,7 +943,7 @@ public class Config
     }
 
     /**
-     * @return
+     * @return Schemas Schemas
      */
     public List<String> getSchemas() {
         if (schemas == null) {
@@ -961,6 +970,7 @@ public class Config
      * The implementation of the class must be made available to the class
      * loader, typically by specifying the path to its jar with <em>-dp</em>
      * ({@link #setDriverPath(String)}).
+     * @param formatterClassName formatterClassName
      */
     public void setSqlFormatter(String formatterClassName) {
         sqlFormatterClass = formatterClassName;
@@ -970,6 +980,7 @@ public class Config
     /**
      * Set the {@link SqlFormatter SQL formatter} to use to format
      * SQL into HTML.
+     * @param sqlFormatter sqlFormatter
      */
     public void setSqlFormatter(SqlFormatter sqlFormatter) {
         this.sqlFormatter = sqlFormatter;
@@ -981,7 +992,7 @@ public class Config
      * Returns an implementation of {@link SqlFormatter SQL formatter} to use to format
      * SQL into HTML.  The default implementation is {@link DefaultSqlFormatter}.
      *
-     * @return
+     * @return SqlFormatter SqlFormatter
      * @throws InvalidConfigurationException if unable to instantiate an instance
      */
     @SuppressWarnings("unchecked")
@@ -1031,7 +1042,7 @@ public class Config
      * When -all (evaluateAll) is specified then this is the regular
      * expression that determines which schemas to evaluate.
      *
-     * @param schemaSpec
+     * @param schemaSpec schemaSpec
      */
     public void setSchemaSpec(String schemaSpec) {
         this.schemaSpec = schemaSpec;
@@ -1052,6 +1063,7 @@ public class Config
      * The default renderer is typically GD.<p>
      * Note that using {@link #setHighQuality(boolean)} is the preferred approach
      * over using this method.
+     * @param renderer renderer
      */
     public void setRenderer(String renderer) {
         Dot.getInstance().setRenderer(renderer);
@@ -1059,7 +1071,7 @@ public class Config
 
     /**
      * @see #setRenderer(String)
-     * @return
+     * @return Renderer Renderer
      */
     public String getRenderer() {
         String renderer = pullParam("-renderer");
@@ -1079,6 +1091,7 @@ public class Config
      * Higher quality output takes longer to generate and results in significantly
      * larger image files (which take longer to download / display), but it generally
      * looks better.
+     * @param highQuality highQuality
      */
     public void setHighQuality(boolean highQuality) {
         this.highQuality = highQuality;
@@ -1087,6 +1100,7 @@ public class Config
     }
 
     /**
+     * @return isHighQuality isHighQuality
      * @see #setHighQuality(boolean)
      */
     public boolean isHighQuality() {
@@ -1103,6 +1117,7 @@ public class Config
     }
 
     /**
+     * @return isLowQuality isLowQuality
      * @see #setHighQuality(boolean)
      */
     public boolean isLowQuality() {
@@ -1122,6 +1137,7 @@ public class Config
      * <code>true</code> if we should display advertisements.
      * Defaults to <code>true</code>.<p>
      * <b>Please do not disable ads unless absolutely necessary</b>.
+     * @param enabled enabled
      */
     public void setAdsEnabled(boolean enabled) {
         adsEnabled = enabled;
@@ -1131,7 +1147,7 @@ public class Config
      * Returns <code>true</code> if we should display advertisements.<p>
      * <b>Please do not disable ads unless absolutely necessary</b>.
      *
-     * @return
+     * @return isAdsEnabled isAdsEnabled
      */
     public boolean isAdsEnabled() {
         if (adsEnabled == null) {
@@ -1154,7 +1170,7 @@ public class Config
      *  <li><code>finest</code>  (lowest - most detail)
      * </ul>
      *
-     * @param logLevel
+     * @param logLevel logLevel
      */
     public void setLogLevel(String logLevel) {
         if (logLevel == null) {
@@ -1182,7 +1198,7 @@ public class Config
      * Returns the level of logging to perform.
      * See {@link #setLogLevel(String)}.
      *
-     * @return
+     * @return LogLevel LogLevel
      */
     public Level getLogLevel() {
         if (logLevel == null) {
@@ -1196,7 +1212,7 @@ public class Config
      * Returns <code>true</code> if the options indicate that the user wants
      * to see some help information.
      *
-     * @return
+     * @return isHelpRequired isHelpRequired
      */
     public boolean isHelpRequired() {
         return helpRequired;
@@ -1212,9 +1228,9 @@ public class Config
     }
 
     /**
-     * @param type
-     * @return
-     * @throws IOException
+     * @param type type
+     * @return DbProperties DbProperties
+     * @throws IOException IOException
      * @throws InvalidConfigurationException if db properties are incorrectly formed
      */
     public Properties getDbProperties(String type) throws IOException, InvalidConfigurationException {
@@ -1317,7 +1333,7 @@ public class Config
      * Options that are specific to a type of database.  E.g. things like <code>host</code>,
      * <code>port</code> or <code>db</code>, but <b>don't</b> have a setter in this class.
      *
-     * @param dbSpecificOptions
+     * @param dbSpecificOptions dbSpecificOptions
      */
     public void setDbSpecificOptions(Map<String, String> dbSpecificOptions) {
         this.dbSpecificOptions = dbSpecificOptions;
@@ -1543,8 +1559,8 @@ public class Config
      * Get the value of the specified parameter.
      * Used for properties that are common to most db's, but aren't required.
      *
-     * @param paramName
-     * @return
+     * @param paramName paramName
+     * @return Param Param
      */
     public String getParam(String paramName) {
         try {
@@ -1568,8 +1584,8 @@ public class Config
      * Return all of the configuration options as a List of Strings, with
      * each parameter and its value as a separate element.
      *
-     * @return
-     * @throws IOException
+     * @return List List
+     * @throws IOException IOException
      */
     public List<String> asList() throws IOException {
         List<String> params = new ArrayList<String>();

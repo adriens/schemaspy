@@ -56,9 +56,9 @@ public class PasswordReader {
      * running in a 1.5 JVM or the much better implementation that
      * was introduced in 1.6 when running in a JVM that supplies it.
      *
-     * @param fmt
-     * @param args
-     * @return
+     * @param fmt fmt
+     * @param args args
+     * @return the password
      */
     public char[] readPassword(String fmt, Object ... args) {
         InputStream in = System.in;

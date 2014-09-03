@@ -188,8 +188,8 @@ public class DbConfigTableModel extends AbstractTableModel {
     }
 
     /**
-     * @param row
-     * @return
+     * @param row row
+     * @return gt the Class
      */
     public Class<?> getClass(int row) {
         PropertyDescriptor descriptor = options.get(row);
@@ -197,8 +197,8 @@ public class DbConfigTableModel extends AbstractTableModel {
     }
 
     /**
-     * @param row
-     * @return
+     * @param row row
+     * @return Description
      */
     public String getDescription(int row) {
         PropertyDescriptor descriptor = options.get(row);

@@ -55,7 +55,7 @@ public class XmlTableFormatter {
     /**
      * Singleton accessor
      *
-     * @return
+     * @return XmlTableFormatter
      */
     public static XmlTableFormatter getInstance() {
         return instance;
@@ -64,8 +64,8 @@ public class XmlTableFormatter {
     /**
      * Append the specified tables to the XML node
      *
-     * @param schemaNode
-     * @param tables
+     * @param schemaNode schemaNode
+     * @param tables tables
      */
     public void appendTables(Element schemaNode, Collection<Table> tables) {
         Set<Table> byName = new TreeSet<Table>(new Comparator<Table>() {

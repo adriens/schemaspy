@@ -42,8 +42,8 @@ public class HtmlEncoder {
     /**
      * Returns an HTML-encoded equivalent of the specified character.
      *
-     * @param ch
-     * @return
+     * @param ch ch
+     * @return encodedToken encodedToken
      */
     public static String encodeToken(char ch) {
         return encodeToken(String.valueOf(ch));
@@ -54,8 +54,8 @@ public class HtmlEncoder {
      * where tokens have been isolated from
      * other tokens.
      *
-     * @param str
-     * @return
+     * @param str str
+     * @return encodedToken encodedToken
      */
     public static String encodeToken(String str) {
         String result = map.get(str);
@@ -65,8 +65,8 @@ public class HtmlEncoder {
     /**
      * Returns an HTML-encoded version of the specified string
      *
-     * @param str
-     * @return
+     * @param str str
+     * @return encodedString encodedString
      */
     public static String encodeString(String str) {
         int len = str.length();

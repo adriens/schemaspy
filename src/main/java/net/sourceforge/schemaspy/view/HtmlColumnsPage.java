@@ -59,7 +59,7 @@ public class HtmlColumnsPage extends HtmlFormatter {
     /**
      * Returns details about the columns that are displayed on this page.
      *
-     * @return
+     * @return list of ColumnInfo
      */
     public List<ColumnInfo> getColumnInfos()
     {

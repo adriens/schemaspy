@@ -112,7 +112,7 @@ public class StyleSheet {
      * Singleton accessor
      *
      * @return the singleton
-     * @throws ParseException
+     * @throws ParseException ParseException
      */
     public static StyleSheet getInstance() throws ParseException {
         if (instance == null) {
@@ -177,8 +177,8 @@ public class StyleSheet {
     /**
      * Write the contents of the original css to <code>out</code>.
      *
-     * @param out
-     * @throws IOException
+     * @param out out
+     * @throws IOException IOException
      */
     public void write(LineWriter out) throws IOException {
         out.write(css);

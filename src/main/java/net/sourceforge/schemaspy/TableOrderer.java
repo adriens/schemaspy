@@ -42,8 +42,9 @@ public class TableOrderer {
      *
      * <code>recursiveConstraints</code> gets populated with <code>TableConstraint</code>s
      * that had to be removed to resolve the returned list.
-     * @param recursiveConstraints
-     * @return
+     * @param tables tables
+     * @param recursiveConstraints recursiveConstraints
+     * @return TablesOrderedByRI TablesOrderedByRI
      */
     public List<Table> getTablesOrderedByRI(Collection<Table> tables, Collection<ForeignKeyConstraint> recursiveConstraints) {
         List<Table> heads = new ArrayList<Table>();
@@ -164,7 +165,7 @@ public class TableOrderer {
     /**
      * Remove the leaf nodes (tables w/o children)
      *
-     * @param tables
+     * @param tables tables
      * @return tables removed
      */
     private static List<Table> trimLeaves(List<Table> tables) {

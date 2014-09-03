@@ -60,6 +60,12 @@ public class DotFormatter {
     /**
      * Write real relationships (excluding implied) associated with the given table.<p>
      * Returns a set of the implied constraints that could have been included but weren't.
+     * @param table table
+     * @param twoDegreesOfSeparation twoDegreesOfSeparation
+     * @param stats stats
+     * @param dot dot
+     * @return  ForeignKeyConstraints ForeignKeyConstraints
+     * @throws java.io.IOException IOException
      */
     public Set<ForeignKeyConstraint> writeRealRelationships(Table table, boolean twoDegreesOfSeparation, WriteStats stats, LineWriter dot) throws IOException {
         return writeRelationships(table, twoDegreesOfSeparation, stats, false, dot);
@@ -67,6 +73,11 @@ public class DotFormatter {
 
     /**
      * Write implied relationships associated with the given table
+     * @param table table
+     * @param twoDegreesOfSeparation twoDegreesOfSeparation
+     * @param stats stats
+     * @param dot dot
+     * @throws java.io.IOException IOException
      */
     public void writeAllRelationships(Table table, boolean twoDegreesOfSeparation, WriteStats stats, LineWriter dot) throws IOException {
         writeRelationships(table, twoDegreesOfSeparation, stats, true, dot);
@@ -263,6 +274,14 @@ public class DotFormatter {
 
     /**
      * Returns <code>true</code> if it wrote any implied relationships
+     * @param db db
+     * @param tables tables
+     * @param compact compact
+     * @param showColumns showColumns
+     * @param  stats stats
+     * @param  dot dot
+     * @return  tells if AllRelationships have been written or not
+     * @throws  IOException IOException
      */
     public boolean writeAllRelationships(Database db, Collection<Table> tables, boolean compact, boolean showColumns, WriteStats stats, LineWriter dot) throws IOException {
         return writeRelationships(db, tables, compact, showColumns, true, stats, dot);

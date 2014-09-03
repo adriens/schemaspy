@@ -116,7 +116,7 @@ public class DbAnalyzer {
      * A side-effect of calling this method is that the returned collection of
      * constraints will be "tied into" the associated tables.
      *
-     * @param tables
+     * @param tables tables
      * @return List of {@link RailsForeignKeyConstraint}s
      */
     public static List<RailsForeignKeyConstraint> getRailsConstraints(Map<String, Table> tables) {
@@ -149,7 +149,7 @@ public class DbAnalyzer {
      * used by the specified tables.
      *
      * @param tables Collection
-     * @return List
+     * @return List List
      */
     public static List<ForeignKeyConstraint> getForeignKeyConstraints(Collection<Table> tables) {
         List<ForeignKeyConstraint> constraints = new ArrayList<ForeignKeyConstraint>();
@@ -176,6 +176,8 @@ public class DbAnalyzer {
     /**
      * Return a list of <code>TableColumn</code>s that are both nullable
      * and have an index that specifies that they must be unique (a rather strange combo).
+     * @param tables tables
+     * @return MustBeUniqueNullableColumns
      */
     public static List<TableColumn> getMustBeUniqueNullableColumns(Collection<Table> tables) {
         List<TableColumn> uniqueNullables = new ArrayList<TableColumn>();
@@ -193,6 +195,8 @@ public class DbAnalyzer {
 
     /**
      * Return a list of <code>Table</code>s that have neither an index nor a primary key.
+     * @param tables tables
+     * @return TablesWithoutIndexes
      */
     public static List<Table> getTablesWithoutIndexes(Collection<Table> tables) {
         List<Table> withoutIndexes = new ArrayList<Table>();
@@ -312,6 +316,8 @@ public class DbAnalyzer {
      * getSchemas - returns a List of schema names (Strings)
      *
      * @param meta DatabaseMetaData
+     * @return Schemas Schemas
+     * @throws java.sql.SQLException SQLException
      */
     public static List<String> getSchemas(DatabaseMetaData meta) throws SQLException {
         List<String> schemas = new ArrayList<String>();
@@ -329,6 +335,8 @@ public class DbAnalyzer {
      * getSchemas - returns a List of schema names (Strings) that contain tables
      *
      * @param meta DatabaseMetaData
+     * @return  PopulatedSchemas PopulatedSchemas
+     * @throws java.sql.SQLException SQLException
      */
     public static List<String> getPopulatedSchemas(DatabaseMetaData meta) throws SQLException {
         return getPopulatedSchemas(meta, ".*");
@@ -339,6 +347,9 @@ public class DbAnalyzer {
      * match the <code>schemaSpec</code> regular expression
      *
      * @param meta DatabaseMetaData
+     * @param schemaSpec schemaSpec
+     * @return PopulatedSchemas
+     * @throws java.sql.SQLException SQLException
      */
     public static List<String> getPopulatedSchemas(DatabaseMetaData meta, String schemaSpec) throws SQLException {
         Set<String> schemas = new TreeSet<String>(); // alpha sorted
@@ -381,7 +392,8 @@ public class DbAnalyzer {
     /**
      * For debugging/analyzing result sets
      * @param rs ResultSet
-     * @throws SQLException
+     * @param description description
+     * @throws SQLException SQLException
      */
     public static void dumpResultSetRow(ResultSet rs, String description) throws SQLException {
         ResultSetMetaData meta = rs.getMetaData();

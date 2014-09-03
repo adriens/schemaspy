@@ -19,6 +19,7 @@
             <action dev="adriens" type="add">Maven site : Implemented the Running Schemaspy page</action>
             <action dev="adriens" type="add">Maven site : Implemented Project Reports</action>
             <action dev="adriens" type="add">Corrected javadoc so javadoc runs on jdk-1.8</action>
+            <action dev="adriens" type="add">Corrected javadoc so javadoc runs on jdk-1.8 without warning</action>
             
             
             <!--<action dev="adriens" type="add"></action>-->

@@ -32,15 +32,15 @@ public class View extends Table {
     private String viewSql;
 
     /**
-     * @param db
-     * @param schema
-     * @param name
-     * @param remarks
-     * @param viewSql
-     * @param properties
-     * @param excludeIndirectColumns
-     * @param excludeColumns
-     * @throws SQLException
+     * @param db db
+     * @param schema schema
+     * @param name name
+     * @param remarks remarks
+     * @param viewSql viewSql
+     * @param properties properties
+     * @param excludeIndirectColumns excludeIndirectColumns
+     * @param excludeColumns excludeColumns
+     * @throws SQLException the SQLException
      */
     public View(Database db, String schema, String name, String remarks, String viewSql,
                 Properties properties,
@@ -55,7 +55,7 @@ public class View extends Table {
     }
 
     /**
-     * @return
+     * @return isView
      */
     @Override
     public boolean isView() {

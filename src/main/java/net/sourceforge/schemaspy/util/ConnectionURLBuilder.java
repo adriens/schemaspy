@@ -33,8 +33,8 @@ public class ConnectionURLBuilder {
     private final Logger logger = Logger.getLogger(getClass().getName());
 
     /**
-     * @param config
-     * @param properties
+     * @param config config
+     * @param properties properties
      */
     public ConnectionURLBuilder(Config config, Properties properties) {
         List<String> opts = new ArrayList<String>();
@@ -83,7 +83,7 @@ public class ConnectionURLBuilder {
      * Returns a {@link List} of populated {@link DbSpecificOption}s that are applicable to
      * the specified database type.
      *
-     * @return
+     * @return the Options
      */
     public List<DbSpecificOption> getOptions() {
         return options;

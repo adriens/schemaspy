@@ -28,7 +28,7 @@ public class ProcessExecutionException extends RuntimeException {
     /**
      * When a message is sufficient
      *
-     * @param msg
+     * @param msg msg
      */
     public ProcessExecutionException(String msg) {
         super(msg);
@@ -38,8 +38,8 @@ public class ProcessExecutionException extends RuntimeException {
      * When there's an associated root cause.
      * The resultant msg will be a combination of <code>msg</code> and cause's <code>msg</code>.
      *
-     * @param msg
-     * @param cause
+     * @param msg msg
+     * @param cause cause
      */
     public ProcessExecutionException(String msg, Throwable cause) {
         super(msg + " " + cause.getMessage(), cause);
@@ -48,7 +48,7 @@ public class ProcessExecutionException extends RuntimeException {
     /**
      * When there are no details other than the root cause
      *
-     * @param cause
+     * @param cause cause
      */
     public ProcessExecutionException(Throwable cause) {
         super(cause);

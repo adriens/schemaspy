@@ -40,7 +40,7 @@ public class DbSpecificConfig {
     /**
      * Construct an instance with configuration options of the specified database type
      *
-     * @param dbType
+     * @param dbType dbType
      */
     public DbSpecificConfig(final String dbType) {
         type = dbType;
@@ -82,7 +82,7 @@ public class DbSpecificConfig {
      * Returns a {@link List} of {@link DbSpecificOption}s that are applicable to the
      * specified database type.
      *
-     * @return
+     * @return getOptions
      */
     public List<DbSpecificOption> getOptions() {
         return options;
@@ -91,7 +91,7 @@ public class DbSpecificConfig {
     /**
      * Return the generic configuration associated with this DbSpecificCofig
      *
-     * @return
+     * @return the config
      */
     public Config getConfig() {
         return config;

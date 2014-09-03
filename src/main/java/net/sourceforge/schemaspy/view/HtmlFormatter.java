@@ -98,6 +98,12 @@ public class HtmlFormatter {
 
     /**
      * Convenience method for all those formatters that don't deal with JavaScript
+     * @param db db
+     * @param table table
+     * @param text text
+     * @param showOrphans showOrphans
+     * @param out out
+     * @throws java.io.IOException IOException
      */
     protected void writeHeader(Database db, Table table, String text, boolean showOrphans, LineWriter out) throws IOException {
         writeHeader(db, table, text, showOrphans, null, out);
