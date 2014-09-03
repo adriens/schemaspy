@@ -1,9 +1,10 @@
 Schemaspy mavenized version
 ==========================================
 
-This schemaspu version run exactly the same code as the official one, except
+This schemaspy version run exactly the same code as the official one, except
 that :
-* it is build with maven
+
+* it is built with maven
 * it natively embeds DB2/AS400 support
 * Google ads have been removed
 
