@@ -1,4 +1,4 @@
-Schemaspy mavenized version
+[![Build Status](https://travis-ci.org/adriens/schemaspy.svg?branch=master)](https://travis-ci.org/adriens/schemaspy)Schemaspy mavenized version
 ==========================================
 
 This schemaspy version run exactly the same code as the official one, except
